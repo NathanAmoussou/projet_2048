@@ -8,7 +8,8 @@ from turtle import bgcolor
 ###################################
 # Constantes
 
-
+LARGEUR_TUILE = 125
+LONGUEUR_TUILE = 125
 
 
 ###################################
@@ -25,8 +26,14 @@ def rgb_hack(rgb):
     return "#%02x%02x%02x" % rgb
 
 
-def deplacement_left():
-    pass
+def deplacement_right_test():
+    canevas.move(tuile_test, 125, 0)
+def deplacement_left_test():
+    canevas.move(tuile_test, -125, 0)
+def deplacement_up_test():
+    canevas.move(tuile_test, 0, -125)
+def deplacement_down_test():
+    canevas.move(tuile_test, 0, 125)
 
 
 ###################################
@@ -38,13 +45,13 @@ racine.configure(bg=rgb_hack((30, 30, 30)))
 racine.title('2048')
 racine.geometry('1000x600+200+100')
 
-canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)), highlightthickness=2, \
+canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)),bd=0, highlightthickness=2, \
                     highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
 
-bouton_left = tk.Button(racine, text='Left', bg=rgb_hack((37, 37, 37)))
-bouton_right = tk.Button(racine, text='Right', bg=rgb_hack((37, 37, 37)))
-bouton_up = tk.Button(racine, text='Up', bg=rgb_hack((37, 37, 37)))
-bouton_down = tk.Button(racine, text='Down', bg=rgb_hack((37, 37, 37)))
+bouton_left = tk.Button(racine, text='Left', bg=rgb_hack((37, 37, 37)), command=deplacement_left_test)
+bouton_right = tk.Button(racine, text='Right', bg=rgb_hack((37, 37, 37)), command=deplacement_right_test)
+bouton_up = tk.Button(racine, text='Up', bg=rgb_hack((37, 37, 37)), command=deplacement_up_test)
+bouton_down = tk.Button(racine, text='Down', bg=rgb_hack((37, 37, 37)), command=deplacement_down_test)
 
 tuile_test = canevas.create_rectangle(125, 125, 250, 250, fill=rgb_hack((0, 0, 0)))
 
