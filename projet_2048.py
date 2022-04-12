@@ -2,6 +2,7 @@
 # Import des librairies
 
 import tkinter as tk
+from turtle import bgcolor
 
 
 ###################################
@@ -24,6 +25,9 @@ def rgb_hack(rgb):
     return "#%02x%02x%02x" % rgb
 
 
+def deplacement_left():
+    pass
+
 
 ###################################
 # Programme principal
@@ -33,10 +37,29 @@ racine = tk.Tk()
 racine.configure(bg=rgb_hack((30, 30, 30)))
 racine.title('2048')
 racine.geometry('1000x600+200+100')
-canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)), highlightthickness=1, highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
+
+canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)), highlightthickness=2, \
+                    highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
+
+bouton_left = tk.Button(racine, text='Left', bg=rgb_hack((37, 37, 37)))
+bouton_right = tk.Button(racine, text='Right', bg=rgb_hack((37, 37, 37)))
+bouton_up = tk.Button(racine, text='Up', bg=rgb_hack((37, 37, 37)))
+bouton_down = tk.Button(racine, text='Down', bg=rgb_hack((37, 37, 37)))
+
+tuile_test = canevas.create_rectangle(125, 125, 250, 250, fill=rgb_hack((0, 0, 0)))
+
 
 # placement des widgets
 canevas.place(x=50, y=50)
+for x in range(3): # création des lignes
+    canevas.create_line(125*(x+1), 0, 125*(x+1), 502, fill=rgb_hack((0, 0, 0)), width=2)
+for y in range(3): # idem
+    canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
+
+bouton_left.place(x=700, y=300) # boutons très moches juste pour tester
+bouton_right.place(x=700, y=350) # boutons très moches juste pour tester
+bouton_up.place(x=700, y=325) # boutons très moches juste pour tester
+bouton_down.place(x=700, y=375) # boutons très moches juste pour tester
 
 # boucle principale
 tk.mainloop()
