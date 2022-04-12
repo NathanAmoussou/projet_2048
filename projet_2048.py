@@ -27,13 +27,26 @@ def rgb_hack(rgb):
 
 
 def deplacement_right_test():
-    canevas.move(tuile_test, 125, 0)
+    global test_x
+    if test_x < 375:
+        canevas.move(tuile_test, 125, 0)
+        test_x += 125
 def deplacement_left_test():
-    canevas.move(tuile_test, -125, 0)
+    global test_x
+    if test_x > 0:
+        canevas.move(tuile_test, -125, 0)
+        test_x += -125
 def deplacement_up_test():
-    canevas.move(tuile_test, 0, -125)
+    global test_y
+    if test_y > 125:
+        canevas.move(tuile_test, 0, -125)
+        test_y += -125
 def deplacement_down_test():
-    canevas.move(tuile_test, 0, 125)
+    global test_y
+    if test_y < 500:
+        canevas.move(tuile_test, 0, 125)
+        test_y += 125
+    
 
 
 ###################################
@@ -67,6 +80,11 @@ bouton_left.place(x=700, y=300) # boutons très moches juste pour tester
 bouton_right.place(x=700, y=350) # boutons très moches juste pour tester
 bouton_up.place(x=700, y=325) # boutons très moches juste pour tester
 bouton_down.place(x=700, y=375) # boutons très moches juste pour tester
+
+
+test_c = canevas.coords(tuile_test) # temporaire, c'est juste pour les tests
+test_x = test_c[1]
+test_y = test_c[2]
 
 # boucle principale
 tk.mainloop()
