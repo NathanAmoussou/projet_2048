@@ -27,7 +27,7 @@ configuration_courante = [
     ["A1", 2, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
     ["B1", 0, 0, 0], ["B2", 2, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
     ["C1", 2, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 2, 0, 0],
-    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 4, 0, 0], ["D4", 0, 0, 0]
+    ["D1", 2, 0, 0], ["D2", 0, 0, 0], ["D3", 4, 0, 0], ["D4", 0, 0, 0]
 ]
 
 
@@ -53,6 +53,14 @@ def deplacer_haut():
             configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
             canevas.delete(i[2])
             canevas.delete(i[3])
+        elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]:
+            configuration_courante[j-4][1] += configuration_courante[j][1]
+            configuration_courante[j][1] = 0
+        print(i, j)
+
+def deplacer_haut_x4():
+    for i in range(3):
+        deplacer_haut()
 
 
 ###################################
@@ -77,8 +85,6 @@ for y in range(3): # idem
 
 ## boucle principale
 affichage_configuration_courante()
-deplacer_haut()
-deplacer_haut()
-deplacer_haut()
+deplacer_haut_x4()
 affichage_configuration_courante()
 tk.mainloop()
