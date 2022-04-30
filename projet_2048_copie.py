@@ -27,7 +27,7 @@ configuration_courante = [
     ["A1", 2, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
     ["B1", 0, 0, 0], ["B2", 2, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
     ["C1", 2, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 2, 0, 0],
-    ["D1", 2, 0, 0], ["D2", 0, 0, 0], ["D3", 4, 0, 0], ["D4", 0, 0, 0]
+    ["D1", 2, 0, 0], ["D2", 2, 0, 0], ["D3", 4, 0, 0], ["D4", 2, 0, 0]
 ]
 
 
@@ -48,7 +48,6 @@ def affichage_configuration_courante():
 
 def deplacer_haut():
     for i, j in zip(configuration_courante, range(len(configuration_courante))):
-        print(i, j)
         if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0:
             configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
             canevas.delete(i[2])
@@ -56,7 +55,8 @@ def deplacer_haut():
         elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]:
             configuration_courante[j-4][1] += configuration_courante[j][1]
             configuration_courante[j][1] = 0
-        print(i, j)
+            canevas.delete(i[2])
+            canevas.delete(i[3])
 
 
 def deplacer_haut_x4():
@@ -66,7 +66,6 @@ def deplacer_haut_x4():
 
 def deplacer_bas():
     for i, j in zip(configuration_courante, range(len(configuration_courante))):
-        print(i, j)
         if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
             configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
             canevas.delete(i[2])
@@ -74,11 +73,51 @@ def deplacer_bas():
         elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
             configuration_courante[j+4][1] += configuration_courante[j][1]
             configuration_courante[j][1] = 0
+            canevas.delete(i[2])
+            canevas.delete(i[3])
 
 
 def deplacer_bas_x4():
     for i in range(3):
         deplacer_bas()
+
+
+def deplacer_gauche():
+    for i, j in zip(configuration_courante, range(len(configuration_courante))):
+        print(i, j)
+        if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
+            configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
+            canevas.delete(i[2])
+            canevas.delete(i[3])
+        elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
+            configuration_courante[j-1][1] += configuration_courante[j][1]
+            configuration_courante[j][1] = 0
+            canevas.delete(i[2])
+            canevas.delete(i[3])
+
+
+def deplacer_gauche_x4():
+    for i in range(3):
+        deplacer_gauche()
+
+
+def deplacer_droite():
+    for i, j in zip(configuration_courante, range(len(configuration_courante))):
+        print(i, j)
+        if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
+            configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
+            canevas.delete(i[2])
+            canevas.delete(i[3])
+        if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
+            configuration_courante[j+1][1] += configuration_courante[j][1]
+            configuration_courante[j][1] = 0
+            canevas.delete(i[2])
+            canevas.delete(i[3])
+
+
+def deplacer_droite_x4():
+    for i in range(3):
+        deplacer_droite()
 
 
 ###################################
@@ -103,7 +142,7 @@ for y in range(3): # idem
 
 ## boucle principale
 affichage_configuration_courante()
-deplacer_bas_x4()
+deplacer_droite_x4()
 affichage_configuration_courante()
 
 tk.mainloop()
