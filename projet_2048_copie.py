@@ -47,77 +47,62 @@ def affichage_configuration_courante():
 
 
 def deplacer_haut():
-    for i, j in zip(configuration_courante, range(len(configuration_courante))):
-        if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0:
-            configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-        elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]:
-            configuration_courante[j-4][1] += configuration_courante[j][1]
-            configuration_courante[j][1] = 0
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-
-
-def deplacer_haut_x4():
+    """Déplace toutes les tuiles vers le haut si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
     for i in range(3):
-        deplacer_haut()
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0:
+                configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+            elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]:
+                configuration_courante[j-4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
 
 
 def deplacer_bas():
-    for i, j in zip(configuration_courante, range(len(configuration_courante))):
-        if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
-            configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-        elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
-            configuration_courante[j+4][1] += configuration_courante[j][1]
-            configuration_courante[j][1] = 0
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-
-
-def deplacer_bas_x4():
     for i in range(3):
-        deplacer_bas()
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+            elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
+                configuration_courante[j+4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
 
 
 def deplacer_gauche():
-    for i, j in zip(configuration_courante, range(len(configuration_courante))):
-        print(i, j)
-        if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
-            configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-        elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
-            configuration_courante[j-1][1] += configuration_courante[j][1]
-            configuration_courante[j][1] = 0
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-
-
-def deplacer_gauche_x4():
     for i in range(3):
-        deplacer_gauche()
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            print(i, j)
+            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
+                configuration_courante[j-1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
 
 
 def deplacer_droite():
-    for i, j in zip(configuration_courante, range(len(configuration_courante))):
-        print(i, j)
-        if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
-            configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-        if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
-            configuration_courante[j+1][1] += configuration_courante[j][1]
-            configuration_courante[j][1] = 0
-            canevas.delete(i[2])
-            canevas.delete(i[3])
-
-
-def deplacer_droite_x4():
     for i in range(3):
-        deplacer_droite()
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            print(i, j)
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
+                configuration_courante[j+1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
 
 
 ###################################
@@ -142,7 +127,7 @@ for y in range(3): # idem
 
 ## boucle principale
 affichage_configuration_courante()
-deplacer_droite_x4()
+deplacer_haut()
 affichage_configuration_courante()
 
 tk.mainloop()
