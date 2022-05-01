@@ -24,12 +24,6 @@ position = {
     "D1": [0, 375, 125, 500], "D2": [125, 375, 250, 500], "D3": [250, 375, 375, 500], "D4": [375, 375, 500, 500]
 } # référence des coordonnées possible pour les tuiles
 
-position2 = [
-    ["A1", [0, 0]], ["A2", [125, 0]], ["A3", [250, 0]], ["A4", [375, 0]],
-    ["B1", [0, 125]], ["B2", [125, 125]], ["B3", [250, 125]], ["B4", [375, 125]],
-    ["C1", [0, 250]], ["C2", [125, 250]], ["C3", [250, 250]], ["C4", [375, 250]],
-    ["D1", [0, 375]], ["D2", [125, 250]], ["D3", [250, 375]], ["D4", [375, 375]]
-]
 
 ###################################
 # Variables globales
@@ -54,17 +48,26 @@ def print_configuration_courante():
     print(configuration_courante[12], configuration_courante[13], configuration_courante[14], configuration_courante[15])
 
 
-
 def rgb_hack(rgb):
     """Fonction qui permet de travailler avec des couleurs RGB (https://pythonguides.com/python-tkinter-colors/)."""
     return "#%02x%02x%02x" % rgb
+
+
+def spawner_tuile_aleatoire():
+    cases_libres = []
+    for i in configuration_courante:
+        if i[1] == 0:
+            cases_libres.append(i)
+    case_choisie = rd.choice(cases_libres)
+    case_choisie[1] = rd.choice([2, 4])
+    affichage_configuration_courante()
 
 
 def affichage_configuration_courante():
     """Met à jour la grille affichée en consultant la configuration courante.
        Appelée à chaque fin de déplacement."""
     for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
-        if i[1] != 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
+        if i[1] != 0 and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
             i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack((238, 228, 218)))
             # ajoute à la config courante un objet rectangle et l'affiche sur la grille
             i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black")
@@ -80,14 +83,13 @@ def deplacer_haut():
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
             elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]: # si la tuile n'est pas au bord et si la case cible est occupé de valeur égale
                 configuration_courante[j-4][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
+    affichage_configuration_courante()
 
 
 def deplacer_bas():
@@ -98,52 +100,47 @@ def deplacer_bas():
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
             elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
                 configuration_courante[j+4][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
+    affichage_configuration_courante()
 
 
 def deplacer_gauche():
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
-            print(i, j)
             if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
                 configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
             elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
                 configuration_courante[j-1][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
+    affichage_configuration_courante()
 
 
 def deplacer_droite():
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
-            print(i, j)
             if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
                 configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
             elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
                 configuration_courante[j+1][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
-                affichage_configuration_courante()
+    affichage_configuration_courante()
 
 
 ###################################
@@ -162,6 +159,7 @@ bouton_haut = tk.Button(racine, text="haut", command=deplacer_haut)
 bouton_bas = tk.Button(racine, text="bas", command=deplacer_bas)
 bouton_gauche = tk.Button(racine, text="gauche", command=deplacer_gauche)
 bouton_droite = tk.Button(racine, text="droite", command=deplacer_droite)
+bouton_spawn = tk.Button(racine, text="spawn", command=spawner_tuile_aleatoire)
 
 ## placement des widgets
 canevas.place(x=50, y=50)
@@ -173,6 +171,7 @@ bouton_haut.place(x=750, y=250)
 bouton_bas.place(x=750, y=350)
 bouton_gauche.place(x=700, y=300)
 bouton_droite.place(x=800, y=300)
+bouton_spawn.place(x=700, y=400)
 
 ## boucle principale
 affichage_configuration_courante()

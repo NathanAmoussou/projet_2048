@@ -46,4 +46,6 @@ for y in range(3): # idem
     canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
 
 ## boucle principale
+x = canevas.find_all()
+print(x)
 tk.mainloop()
