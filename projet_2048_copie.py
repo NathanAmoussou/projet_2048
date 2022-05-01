@@ -24,6 +24,20 @@ position = {
     "D1": [0, 375, 125, 500], "D2": [125, 375, 250, 500], "D3": [250, 375, 375, 500], "D4": [375, 375, 500, 500]
 } # référence des coordonnées possible pour les tuiles
 
+couleurs = {
+    2: (240, 228, 217),
+    4: (239, 225, 199),
+    8: (253, 175, 113),
+    16: (255, 143, 86),
+    32: (255, 112, 82),
+    64: (255, 72, 20),
+    128: (240, 210, 107),
+    256: (240, 207, 88),
+    512: (241, 203, 65),
+    1024: (242, 200, 40),
+    2048: (242, 197, 0)
+}
+
 
 ###################################
 # Variables globales
@@ -55,9 +69,9 @@ def rgb_hack(rgb):
 
 def spawner_tuile_aleatoire():
     cases_libres = []
-    for i in configuration_courante:
-        if i[1] == 0:
-            cases_libres.append(i)
+    for j in configuration_courante:
+        if j[1] == 0:
+            cases_libres.append(j)
     case_choisie = rd.choice(cases_libres)
     case_choisie[1] = rd.choice([2, 4])
     affichage_configuration_courante()
@@ -68,7 +82,7 @@ def affichage_configuration_courante():
        Appelée à chaque fin de déplacement."""
     for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
         if i[1] != 0 and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
-            i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack((238, 228, 218)))
+            i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]))
             # ajoute à la config courante un objet rectangle et l'affiche sur la grille
             i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black")
             # ajoute un text avec la valeur de la tuile à la config courante et l'affiche sur la grille
@@ -76,6 +90,7 @@ def affichage_configuration_courante():
 
 def deplacer_haut():
     """Déplace toutes les tuiles vers le haut si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
+    tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
             if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0: # si la tuile n'est pas au bord et si la case cible est libre
@@ -83,16 +98,22 @@ def deplacer_haut():
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
             elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]: # si la tuile n'est pas au bord et si la case cible est occupé de valeur égale
                 configuration_courante[j-4][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
     affichage_configuration_courante()
+    if tmp == 1:
+        print("spawn haut")
+        print()
 
 
 def deplacer_bas():
+    tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
             if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
@@ -100,16 +121,22 @@ def deplacer_bas():
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
             elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
                 configuration_courante[j+4][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
     affichage_configuration_courante()
+    if tmp == 1:
+        print("spawn bas")
+        print()
 
 
 def deplacer_gauche():
+    tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
             if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
@@ -117,16 +144,23 @@ def deplacer_gauche():
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
             elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
                 configuration_courante[j-1][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
     affichage_configuration_courante()
+    if tmp == 1:
+        print("spawn gauche")
+        print()
+
 
 
 def deplacer_droite():
+    tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
             if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
@@ -134,13 +168,18 @@ def deplacer_droite():
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
             elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
                 configuration_courante[j+1][1] += configuration_courante[j][1]
                 configuration_courante[j][1] = 0
                 canevas.delete(i[2])
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
+                tmp = 1
     affichage_configuration_courante()
+    if tmp == 1:
+        print("spawn droit")
+        print()
 
 
 ###################################
