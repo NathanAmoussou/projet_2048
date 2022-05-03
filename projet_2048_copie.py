@@ -6,10 +6,10 @@
 ###################################
 # Import des librairies
 
-from cgi import print_arguments
 import tkinter as tk
 from turtle import bgcolor
 import random as rd
+import json
 
 
 ###################################
@@ -43,13 +43,17 @@ couleurs = {
 ###################################
 # Variables globales
 
+data = {}
+
 configuration_courante = [
-    ["A1", 0, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
+    ["A1", 2, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
     ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
     ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
     ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
 ] # liste qui contient en permanence la configuration de la grille
 # un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
+
+data = {'config': configuration_courante}
 
 
 ###################################
@@ -87,12 +91,6 @@ def affichage_configuration_courante():
             # ajoute à la config courante un objet rectangle et l'affiche sur la grille
             i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black")
             # ajoute un text avec la valeur de la tuile à la config courante et l'affiche sur la grille
-    print_configuration_courante()
-
-
-def play():
-    spawner_tuile_aleatoire()
-    spawner_tuile_aleatoire()
 
 
 def deplacer_haut():
@@ -116,6 +114,8 @@ def deplacer_haut():
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
+        print("spawn haut")
+        print()
 
 
 def deplacer_bas():
@@ -138,6 +138,8 @@ def deplacer_bas():
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
+        print("spawn bas")
+        print()
 
 
 def deplacer_gauche():
@@ -160,6 +162,8 @@ def deplacer_gauche():
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
+        print("spawn gauche")
+        print()
 
 
 
@@ -183,6 +187,18 @@ def deplacer_droite():
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
+        print("spawn droit")
+        print()
+
+def save_config(config_file, data):
+    with open('etat_var.json', 'w') as f:
+        json.dump(data, f)
+
+def load_config (config_file):
+    with open(config_file, 'r') as f:
+        data = json.load(f)
+    return data
+
 
 
 ###################################
@@ -197,38 +213,28 @@ racine.geometry('1000x600+200+100')
 canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)),bd=0, highlightthickness=2, \
                     highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
 
-bouton_haut = tk.Button(racine, text="↑", command=deplacer_haut)
-bouton_bas = tk.Button(racine, text="↓", command=deplacer_bas)
-bouton_gauche = tk.Button(racine, text="←", command=deplacer_gauche)
-bouton_droite = tk.Button(racine, text="→", command=deplacer_droite)
-
-bouton_play = tk.Button(racine, text="Play", command=play)
-bouton_exit = tk.Button(racine, text="Exit")
-bouton_save = tk.Button(racine, text="Save")
-bouton_load = tk.Button(racine, text="Load")
-
+bouton_haut = tk.Button(racine, text="haut", command=deplacer_haut)
+bouton_bas = tk.Button(racine, text="bas", command=deplacer_bas)
+bouton_gauche = tk.Button(racine, text="gauche", command=deplacer_gauche)
+bouton_droite = tk.Button(racine, text="droite", command=deplacer_droite)
 bouton_spawn = tk.Button(racine, text="spawn", command=spawner_tuile_aleatoire)
-bouton_config = tk.Button(racine, text="config", command=affichage_configuration_courante)
-
+sauvegarde = tk.Button(racine, text="sauvegarder", command=lambda: save_config('etat_var.json', configuration_courante))
+sauvegarde.grid()
+bouton_load = tk.Button(racine, text="charger", command=lambda: load_config('etat_var.json'))
+save_config('etat_var.json', data)
 ## placement des widgets
 canevas.place(x=50, y=50)
 for x in range(3): # création des lignes
     canevas.create_line(125*(x+1), 0, 125*(x+1), 502, fill=rgb_hack((0, 0, 0)), width=2)
 for y in range(3): # idem
     canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
-#bouton_haut.place(x=750, y=250)
-bouton_haut.place(relx=0.775, rely=0.45, anchor=tk.CENTER)
-bouton_bas.place(relx=0.775, rely=0.55, anchor=tk.CENTER)
-bouton_gauche.place(relx=0.75, rely=0.5, anchor=tk.CENTER)
-bouton_droite.place(relx=0.8, rely=0.5, anchor=tk.CENTER)
-
-bouton_play.place(relx=0.7, rely=0.7, anchor=tk.CENTER)
-bouton_exit.place(relx=0.75, rely=0.7, anchor=tk.CENTER)
-bouton_save.place(relx=0.8, rely=0.7, anchor=tk.CENTER)
-bouton_load.place(relx=0.85, rely=0.7, anchor=tk.CENTER)
-
-#bouton_spawn.place(x=700, y=400)
-#bouton_config.place(x=700, y =500)
+bouton_haut.place(x=750, y=250)
+bouton_bas.place(x=750, y=350)
+bouton_gauche.place(x=700, y=300)
+bouton_droite.place(x=800, y=300)
+bouton_spawn.place(x=700, y=400)
+sauvegarde.place(x=850, y=450)
+bouton_load.place(x=900, y=500)
 
 ## boucle principale
 affichage_configuration_courante()
