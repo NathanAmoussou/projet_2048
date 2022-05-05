@@ -7,6 +7,7 @@
 # Import des librairies
 
 from cgi import print_arguments
+from logging import root
 import tkinter as tk
 from turtle import bgcolor
 import random as rd
@@ -44,10 +45,10 @@ couleurs = {
 # Variables globales
 
 configuration_courante = [
-    ["A1", 0, 0, 0, "m"], ["A2", 0, 0, 0, "m"], ["A3", 2, 0, 0, "v"], ["A4", 0, 0, 0, "m"],
-    ["B1", 0, 0, 0, "m"], ["B2", 0, 0, 0, "m"], ["B3", 0, 0, 0, "m"], ["B4", 0, 0, 0, "m"],
-    ["C1", 0, 0, 0, "m"], ["C2", 0, 0, 0, "m"], ["C3", 0, 0, 0, "m"], ["C4", 0, 0, 0, "m"],
-    ["D1", 0, 0, 0, "m"], ["D2", 0, 0, 0, "m"], ["D3", 4, 0, 0, "v"], ["D4", 2, 0, 0, "v"]
+    ["A1", 0, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
+    ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 2, 0, 0], ["B4", 0, 0, 0],
+    ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 2, 0, 0], ["C4", 0, 0, 0],
+    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 4, 0, 0], ["D4", 0, 0, 0]
 ] # liste qui contient en permanence la configuration de la grille
 # un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
 
@@ -130,7 +131,51 @@ def deplacer_haut():
         spawner_tuile_aleatoire()
 
 
+def deplacer_haut_clavier(event):
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0: # si la tuile n'est pas au bord et si la case cible est libre
+                configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]: # si la tuile n'est pas au bord et si la case cible est occupé de valeur égale
+                configuration_courante[j-4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
+
 def deplacer_bas():
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
+                configuration_courante[j+4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
+
+def deplacer_bas_clavier(event):
     tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
@@ -174,8 +219,51 @@ def deplacer_gauche():
         spawner_tuile_aleatoire()
     
 
+def deplacer_gauche_clavier(event):
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
+                configuration_courante[j-1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
 
 def deplacer_droite():
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
+                configuration_courante[j+1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
+
+def deplacer_droite_clavier(event):
     tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
@@ -240,6 +328,16 @@ bouton_play.place(relx=0.7, rely=0.7, anchor=tk.CENTER)
 bouton_exit.place(relx=0.75, rely=0.7, anchor=tk.CENTER)
 bouton_save.place(relx=0.8, rely=0.7, anchor=tk.CENTER)
 bouton_load.place(relx=0.85, rely=0.7, anchor=tk.CENTER)
+
+racine.bind('<z>', deplacer_haut_clavier)
+racine.bind('<s>', deplacer_bas_clavier)
+racine.bind('<q>', deplacer_gauche_clavier)
+racine.bind('<d>', deplacer_droite_clavier)
+
+racine.bind('<Up>', deplacer_haut_clavier)
+racine.bind('<Down>', deplacer_bas_clavier)
+racine.bind('<Left>', deplacer_gauche_clavier)
+racine.bind('<Right>', deplacer_droite_clavier)
 
 #bouton_exterminatus.place(relx=0.775, rely=0.9, anchor=tk.CENTER)
 
