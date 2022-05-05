@@ -81,8 +81,10 @@ def spawner_tuile_aleatoire():
 def affichage_configuration_courante():
     """Met à jour la grille affichée en consultant la configuration courante.
        Appelée à chaque fin de déplacement."""
+    print_configuration_courante()
     for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
-        if i[1] != 0 and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
+        #if i[1] != 0 and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
+        if i[1] != 0: #and i[2] == 0:
             i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]))
             # ajoute à la config courante un objet rectangle et l'affiche sur la grille
             i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black")
