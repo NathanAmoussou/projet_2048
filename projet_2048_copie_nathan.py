@@ -9,6 +9,7 @@
 from cgi import print_arguments
 from logging import root
 import tkinter as tk
+from tokenize import String
 from turtle import bgcolor
 import random as rd
 
@@ -46,11 +47,13 @@ couleurs = {
 
 configuration_courante = [
     ["A1", 0, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
-    ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 2, 0, 0], ["B4", 0, 0, 0],
-    ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 2, 0, 0], ["C4", 0, 0, 0],
-    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 4, 0, 0], ["D4", 0, 0, 0]
+    ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
+    ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
+    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
 ] # liste qui contient en permanence la configuration de la grille
 # un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
+
+score = 0
 
 
 ###################################
@@ -94,22 +97,33 @@ def affichage_configuration_courante():
        Appelée à chaque fin de déplacement."""
     for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
         if i[1] != 0: #and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
-            i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]), tags="v")
+            i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]))
             # ajoute à la config courante un objet rectangle et l'affiche sur la grille
-            i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black")
+            i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black", font=('Helvetica','30'))
             # ajoute un text avec la valeur de la tuile à la config courante et l'affiche sur la grille
     print_configuration_courante()
     print(canevas.find_all())
     exterminatus()
+    affichage_score()
 
 
+playable = 0
 def play():
-    spawner_tuile_aleatoire()
-    spawner_tuile_aleatoire()
+    global playable
+    if playable == 0:
+        spawner_tuile_aleatoire()
+        spawner_tuile_aleatoire()
+    playable = 1
+
+
+def affichage_score():
+    global score
+    label_score.config(text=("score : " + str(score)))
 
 
 def deplacer_haut():
     """Déplace toutes les tuiles vers le haut si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
+    global score
     tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
@@ -126,34 +140,19 @@ def deplacer_haut():
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
                 tmp = 1
+                score += configuration_courante[j-4][1]
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
+    print(score)
 
 
 def deplacer_haut_clavier(event):
-    tmp = 0
-    for i in range(3):
-        for i, j in zip(configuration_courante, range(len(configuration_courante))):
-            if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0: # si la tuile n'est pas au bord et si la case cible est libre
-                configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-            elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]: # si la tuile n'est pas au bord et si la case cible est occupé de valeur égale
-                configuration_courante[j-4][1] += configuration_courante[j][1]
-                configuration_courante[j][1] = 0
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-    affichage_configuration_courante()
-    if tmp == 1:
-        spawner_tuile_aleatoire()
+    deplacer_haut()
 
 
 def deplacer_bas():
+    global score
     tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
@@ -170,34 +169,18 @@ def deplacer_bas():
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
                 tmp = 1
+                score += configuration_courante[j+4][1]
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
 
 
 def deplacer_bas_clavier(event):
-    tmp = 0
-    for i in range(3):
-        for i, j in zip(configuration_courante, range(len(configuration_courante))):
-            if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
-                configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-            elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
-                configuration_courante[j+4][1] += configuration_courante[j][1]
-                configuration_courante[j][1] = 0
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-    affichage_configuration_courante()
-    if tmp == 1:
-        spawner_tuile_aleatoire()
+    deplacer_bas()
 
 
 def deplacer_gauche():
+    global score
     tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
@@ -214,34 +197,18 @@ def deplacer_gauche():
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
                 tmp = 1
+                score += configuration_courante[j-1][1]
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
     
 
 def deplacer_gauche_clavier(event):
-    tmp = 0
-    for i in range(3):
-        for i, j in zip(configuration_courante, range(len(configuration_courante))):
-            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
-                configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
-                configuration_courante[j-1][1] += configuration_courante[j][1]
-                configuration_courante[j][1] = 0
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-    affichage_configuration_courante()
-    if tmp == 1:
-        spawner_tuile_aleatoire()
+    deplacer_gauche()
 
 
 def deplacer_droite():
+    global score
     tmp = 0
     for i in range(3):
         for i, j in zip(configuration_courante, range(len(configuration_courante))):
@@ -258,31 +225,14 @@ def deplacer_droite():
                 canevas.delete(i[3])
                 i[2], i[3] = 0, 0
                 tmp = 1
+                score += configuration_courante[j+1][1]
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
 
 
 def deplacer_droite_clavier(event):
-    tmp = 0
-    for i in range(3):
-        for i, j in zip(configuration_courante, range(len(configuration_courante))):
-            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
-                configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-            elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
-                configuration_courante[j+1][1] += configuration_courante[j][1]
-                configuration_courante[j][1] = 0
-                canevas.delete(i[2])
-                canevas.delete(i[3])
-                i[2], i[3] = 0, 0
-                tmp = 1
-    affichage_configuration_courante()
-    if tmp == 1:
-        spawner_tuile_aleatoire()
+    deplacer_droite()
 
 
 ###################################
@@ -293,22 +243,25 @@ racine = tk.Tk()
 racine.configure(bg=rgb_hack((30, 30, 30)))
 racine.title('2048')
 racine.geometry('1000x600+200+100')
+racine.resizable(False, False)
 
 canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)),bd=0, highlightthickness=2, \
                     highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
 
-bouton_haut = tk.Button(racine, text="↑", command=deplacer_haut)
-bouton_bas = tk.Button(racine, text="↓", command=deplacer_bas)
-bouton_gauche = tk.Button(racine, text="←", command=deplacer_gauche)
-bouton_droite = tk.Button(racine, text="→", command=deplacer_droite)
+bouton_haut = tk.Button(racine, text="↑", command=deplacer_haut, font=('Helvetica','15'))
+bouton_bas = tk.Button(racine, text="↓", command=deplacer_bas, font=('Helvetica','15'))
+bouton_gauche = tk.Button(racine, text="←", command=deplacer_gauche, font=('Helvetica','15'))
+bouton_droite = tk.Button(racine, text="→", command=deplacer_droite, font=('Helvetica','15'))
 
-bouton_play = tk.Button(racine, text="Play", command=play)
-bouton_exit = tk.Button(racine, text="Exit")
-bouton_save = tk.Button(racine, text="Save")
-bouton_load = tk.Button(racine, text="Load")
+bouton_play = tk.Button(racine, text="Play", command=play, font=('Helvetica','15'))
+bouton_exit = tk.Button(racine, text="Exit", command=racine.destroy, font=('Helvetica','15'))
+bouton_save = tk.Button(racine, text="Save", font=('Helvetica','15'))
+bouton_load = tk.Button(racine, text="Load", font=('Helvetica','15'))
 
 bouton_spawn = tk.Button(racine, text="spawn", command=spawner_tuile_aleatoire)
 bouton_config = tk.Button(racine, text="config", command=affichage_configuration_courante)
+
+label_score = tk.Label(racine, text="score : 0", font=('Helvetica','15'))
 
 #bouton_exterminatus = tk.Button(racine, text="exterminatus", command=exterminatus)
 
@@ -328,6 +281,9 @@ bouton_play.place(relx=0.7, rely=0.7, anchor=tk.CENTER)
 bouton_exit.place(relx=0.75, rely=0.7, anchor=tk.CENTER)
 bouton_save.place(relx=0.8, rely=0.7, anchor=tk.CENTER)
 bouton_load.place(relx=0.85, rely=0.7, anchor=tk.CENTER)
+
+label_score.place(relx=0.3, rely=0.04, anchor=tk.CENTER)
+
 
 racine.bind('<z>', deplacer_haut_clavier)
 racine.bind('<s>', deplacer_bas_clavier)
