@@ -202,18 +202,18 @@ def load_config (config_file):
         data = json.load(f)
     return data
 
-def jouer():
+def jouer():        #fonction permettant de lancer le jeu mais n'est pas encore terminer
     lancement == 1
     bouton_play.after(100, bouton_play.destroy)
 
 def stop():
     global total
     canevas.create_rectangle(200, 210, 320, 290, fill = "grey")
-    for i in range((len(configuration_courante))-1):
-        total = total + configuration_courante[i][1]
-    canevas.create_text(250, 250, text="score =")
+    for i in range((len(configuration_courante))-1):    
+        total = total + configuration_courante[i][1]        #prend les valeurs des tuiles pour en faire la somme
+    canevas.create_text(250, 250, text="score =")           #affiche le résultat final
     canevas.create_text(283, 250, text= total)
-    bouton_stop.after(100, bouton_haut.destroy)
+    bouton_stop.after(100, bouton_haut.destroy) #supprime les boutons permettant de jouer
     bouton_stop.after(100, bouton_bas.destroy)
     bouton_stop.after(100, bouton_droite.destroy)
     bouton_stop.after(100, bouton_gauche.destroy)
