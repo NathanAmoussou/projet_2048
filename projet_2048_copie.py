@@ -11,13 +11,16 @@ from turtle import bgcolor
 import random as rd
 import json
 
+from sympy import total_degree
+
 
 ###################################
 # Constantes
 
 LARGEUR_TUILE = 125
 LONGUEUR_TUILE = 125
-
+lancement = 0
+total = 0
 position = {
     "A1": [0, 0, 125, 125], "A2": [125, 0, 250, 125], "A3": [250, 0, 375, 125], "A4": [375, 0, 500, 125],
     "B1": [0, 125, 125, 250], "B2": [125, 125, 250, 250], "B3": [250, 125, 375, 250], "B4": [375, 125, 500, 250],
@@ -191,13 +194,33 @@ def deplacer_droite():
         print()
 
 def save_config(config_file, data):
-    with open('etat_var.json', 'w') as f:
+    with open('etat_var.json', 'w') as f: #Permet de créer une sauvegarde en enregistrant l'état des variables dans un fichier .json
         json.dump(data, f)
 
 def load_config (config_file):
-    with open(config_file, 'r') as f:
+    with open(config_file, 'r') as f: #Permet d'ouvrir le fichier crée afin de récupérer les variables de la sauvegarde
         data = json.load(f)
     return data
+
+def jouer():
+    lancement == 1
+    bouton_play.after(100, bouton_play.destroy)
+
+def stop():
+    global total
+    canevas.create_rectangle(200, 210, 320, 290, fill = "grey")
+    for i in range((len(configuration_courante))-1):
+        total = total + configuration_courante[i][1]
+    canevas.create_text(250, 250, text="score =")
+    canevas.create_text(283, 250, text= total)
+    bouton_stop.after(100, bouton_haut.destroy)
+    bouton_stop.after(100, bouton_bas.destroy)
+    bouton_stop.after(100, bouton_droite.destroy)
+    bouton_stop.after(100, bouton_gauche.destroy)
+    bouton_stop.after(100, bouton_play.destroy)
+    bouton_stop.after(100, bouton_load.destroy)
+    bouton_stop.after(100, sauvegarde.destroy)
+    bouton_stop.after(100, bouton_stop.destroy)
 
 
 
@@ -213,21 +236,26 @@ racine.geometry('1000x600+200+100')
 canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)),bd=0, highlightthickness=2, \
                     highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
 
+bouton_play = tk.Button(racine, text="play", command = jouer)
+
 bouton_haut = tk.Button(racine, text="haut", command=deplacer_haut)
 bouton_bas = tk.Button(racine, text="bas", command=deplacer_bas)
 bouton_gauche = tk.Button(racine, text="gauche", command=deplacer_gauche)
 bouton_droite = tk.Button(racine, text="droite", command=deplacer_droite)
 bouton_spawn = tk.Button(racine, text="spawn", command=spawner_tuile_aleatoire)
 sauvegarde = tk.Button(racine, text="sauvegarder", command=lambda: save_config('etat_var.json', configuration_courante))
-sauvegarde.grid()
 bouton_load = tk.Button(racine, text="charger", command=lambda: load_config('etat_var.json'))
 save_config('etat_var.json', data)
+bouton_stop = tk.Button(racine, text="quitter", command=stop)
 ## placement des widgets
+
 canevas.place(x=50, y=50)
 for x in range(3): # création des lignes
     canevas.create_line(125*(x+1), 0, 125*(x+1), 502, fill=rgb_hack((0, 0, 0)), width=2)
 for y in range(3): # idem
     canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
+
+
 bouton_haut.place(x=750, y=250)
 bouton_bas.place(x=750, y=350)
 bouton_gauche.place(x=700, y=300)
@@ -235,6 +263,9 @@ bouton_droite.place(x=800, y=300)
 bouton_spawn.place(x=700, y=400)
 sauvegarde.place(x=850, y=450)
 bouton_load.place(x=900, y=500)
+bouton_stop.place(x=900, y=550)
+
+bouton_play.place(x=700, y=100)
 
 ## boucle principale
 affichage_configuration_courante()
