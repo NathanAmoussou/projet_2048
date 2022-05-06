@@ -1,17 +1,11 @@
-# objectif pour 31 avril : assigner les fonctions de deplacement à des boutons et à des touches du clavier
-# faire apparaitre une tuile aléatoire à chaque déplacement
-# créer l'évènement victoire et défaite (si 2048 ou si plus aucun déplacement possible)
-
-
 ###################################
 # Import des librairies
 
-from cgi import print_arguments
-from logging import root
+
 import tkinter as tk
-from tokenize import String
 from turtle import bgcolor
 import random as rd
+import time
 
 
 ###################################
@@ -49,7 +43,7 @@ configuration_courante = [
     ["A1", 0, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
     ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
     ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
-    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
+    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 1024, 0, 0], ["D4", 1024, 0, 0]
 ] # liste qui contient en permanence la configuration de la grille
 # un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
 
@@ -92,6 +86,48 @@ def exterminatus():
             canevas.delete(x)
 
 
+victoire_var = 0
+def victoire():
+    tmp = [i[1] for i in configuration_courante]
+    if 2048 in tmp:
+        label_victoire.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
+        bouton_continuer.place(relx=0.2375, rely=0.58, anchor=tk.CENTER)
+        bouton_recommencer.place(relx=0.3625, rely=0.58, anchor=tk.CENTER)
+
+
+def continuer():
+    global bouton_continuer, bouton_recommencer, victoire_var
+    label_victoire.destroy()
+    bouton_continuer.destroy()
+    bouton_recommencer.destroy()
+    victoire_var = 1
+
+
+def recommencer():
+    tmp = canevas.find_all()
+    for x in tmp[6:]:
+        canevas.delete(x)
+    for i in configuration_courante:
+        i[1], i[2], i[3] = 0, 0, 0
+    continuer()
+    spawner_tuile_aleatoire()
+    spawner_tuile_aleatoire()
+
+
+"""defaite_var = 0
+def defaite():
+    global defaite_var
+    for i in range(len(configuration_courante)):
+        if bool(configuration_courante[i][1]) == bool(configuration_courante[i-1][1]):
+            defaite_var = 1
+        elif bool(configuration_courante[i][1]) != bool(configuration_courante[i-1][1]) or configuration_courante[i][1] == configuration_courante[i-1][1]:
+            defaite_var = 0
+            break
+        print(defaite_var)
+    if defaite_var == 1:
+        print("perdue")"""
+
+
 def affichage_configuration_courante():
     """Met à jour la grille affichée en consultant la configuration courante.
        Appelée à chaque fin de déplacement."""
@@ -105,6 +141,9 @@ def affichage_configuration_courante():
     print(canevas.find_all())
     exterminatus()
     affichage_score()
+    if victoire_var == 0:
+        victoire()
+    #defaite()
 
 
 playable = 0
@@ -263,7 +302,10 @@ bouton_config = tk.Button(racine, text="config", command=affichage_configuration
 
 label_score = tk.Label(racine, text="score : 0", font=('Helvetica','15'))
 
-#bouton_exterminatus = tk.Button(racine, text="exterminatus", command=exterminatus)
+label_victoire = tk.Label(racine, text=("Victoire ! Vous avez atteint la tuile 2048.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous continuer à jouer ?"),
+                          font=('Helvetica','15'))
+bouton_continuer = tk.Button(racine, text=("Continuer"), font=('Helvetica','15'), command=continuer)
+bouton_recommencer = tk.Button(racine, text=("Recommencer"), font=('Helvetica','15'), command=recommencer)
 
 ## placement des widgets
 canevas.place(x=50, y=50)
@@ -282,7 +324,7 @@ bouton_exit.place(relx=0.75, rely=0.7, anchor=tk.CENTER)
 bouton_save.place(relx=0.8, rely=0.7, anchor=tk.CENTER)
 bouton_load.place(relx=0.85, rely=0.7, anchor=tk.CENTER)
 
-label_score.place(relx=0.3, rely=0.04, anchor=tk.CENTER)
+label_score.place(relx=0.2375, rely=0.04, anchor=tk.CENTER)
 
 
 racine.bind('<z>', deplacer_haut_clavier)
