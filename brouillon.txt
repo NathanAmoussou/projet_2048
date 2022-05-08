@@ -1661,4 +1661,1460 @@ if i[1] != 0 and (i[2] == 0 or (i[0] != "A1"
 
 
 
-                                    
+mouvement_possible = True
+def voisinage():
+    global mouvement_possible
+    for i in configuration_courante:
+        if i[0] == "A1":
+            if i[1] == configuration_courante[1][1] or i[1] == configuration_courante[4][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[1][1] and i[1] != configuration_courante[4][1]:
+                mouvement_possible = False
+        elif i[0] == "A2":
+            if i[1] == configuration_courante[0][1] or i[1] == configuration_courante[2][1] or i[1] == configuration_courante[5][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[0][1] and i[1] != configuration_courante[2][1] and i[1] != configuration_courante[5][1]:
+                mouvement_possible = False
+        elif i[0] == "A3":
+            if i[1] == configuration_courante[1][1] or i[1] == configuration_courante[3][1] or i[1] == configuration_courante[6][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[1][1] and i[1] != configuration_courante[3][1] and i[1] != configuration_courante[6][1]:
+                mouvement_possible = False
+        elif i[0] == "A4":
+            if i[1] == configuration_courante[2][1] or i[1] == configuration_courante[7][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[2][1] and i[1] != configuration_courante[7][1]:
+                mouvement_possible = False
+
+        elif i[0] == "B1":
+            if i[1] == configuration_courante[0][1] or i[1] == configuration_courante[5][1] or i[1] == configuration_courante[8][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[0][1] and i[1] != configuration_courante[5][1] and i[1] != configuration_courante[8][1]:
+                mouvement_possible = False
+        elif i[0] == "B2":
+            if i[1] == configuration_courante[1][1] or i[1] == configuration_courante[4][1] or i[1] == configuration_courante[6][1] or i[1] == configuration_courante[9][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[1][1] and i[1] != configuration_courante[4][1] and i[1] != configuration_courante[6][1] and i[1] != configuration_courante[9][1]:
+                mouvement_possible = False
+        elif i[0] == "B3":
+            if i[1] == configuration_courante[2][1] or i[1] == configuration_courante[5][1] or i[1] == configuration_courante[7][1] or i[1] == configuration_courante[10][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[2][1] and i[1] != configuration_courante[5][1] and i[1] != configuration_courante[7][1] and i[1] != configuration_courante[10][1]:
+                mouvement_possible = False
+        elif i[0] == "B4":
+            if i[1] == configuration_courante[3][1] or i[1] == configuration_courante[6][1] or i[1] == configuration_courante[11][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[3][1] and i[1] != configuration_courante[6][1] and i[1] != configuration_courante[11][1]:
+                mouvement_possible = False
+        
+        elif i[0] == "C1":
+            if i[1] == configuration_courante[4][1] or i[1] == configuration_courante[9][1] or i[1] == configuration_courante[12][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[4][1] and i[1] != configuration_courante[9][1] and i[1] != configuration_courante[12][1]:
+                mouvement_possible = False
+        elif i[0] == "C2":
+            if i[1] == configuration_courante[5][1] or i[1] == configuration_courante[8][1] or i[1] == configuration_courante[10][1] or i[1] == configuration_courante[13][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[5][1] and i[1] != configuration_courante[8][1] and i[1] != configuration_courante[10][1] and i[1] != configuration_courante[13][1]:
+                mouvement_possible = False
+        elif i[0] == "C3":
+            if i[1] == configuration_courante[6][1] or i[1] == configuration_courante[9][1] or i[1] == configuration_courante[11][1] or i[1] == configuration_courante[14][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[6][1] and i[1] != configuration_courante[9][1] and i[1] != configuration_courante[11][1] and i[1] != configuration_courante[14][1]:
+                mouvement_possible = False
+        elif i[0] == "C4":
+            if i[1] == configuration_courante[7][1] or i[1] == configuration_courante[10][1] or i[1] == configuration_courante[15][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[7][1] and i[1] != configuration_courante[10][1] and i[1] != configuration_courante[15][1]:
+                mouvement_possible = False
+
+        elif i[0] == "D1":
+            if i[1] == configuration_courante[8][1] or i[1] == configuration_courante[13][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[8][1] and i[1] != configuration_courante[13][1]:
+                mouvement_possible = False
+        elif i[0] == "D2":
+            if i[1] == configuration_courante[9][1] or i[1] == configuration_courante[12][1] or i[1] == configuration_courante[14][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[9][1] and i[1] != configuration_courante[12][1] and i[1] != configuration_courante[14][1]:
+                mouvement_possible = False
+        elif i[0] == "D3":
+            if i[1] == configuration_courante[10][1] or i[1] == configuration_courante[13][1] or i[1] == configuration_courante[15][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[10][1] and i[1] != configuration_courante[13][1] and i[1] != configuration_courante[15][1]:
+                mouvement_possible = False
+        elif i[0] == "D4":
+            if i[1] == configuration_courante[11][1] or i[1] == configuration_courante[14][1]:
+                mouvement_possible = True
+            elif i[1] != configuration_courante[11][1] and i[1] != configuration_courante[14][1]:
+                mouvement_possible = False
+    return mouvement_possible
+
+
+
+
+
+
+
+
+
+
+
+
+
+mouvement_possible2 = True
+def defaite():
+    global mouvement_possible2
+    voisinage()
+    for i in configuration_courante:
+        if i[1] == 0:
+            mouvement_possible2 = True
+            break
+        elif i[1] != 0:
+            mouvement_possible2 = False
+    if mouvement_possible == False and mouvement_possible2 == False:
+        label_defaite.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
+
+
+
+
+
+
+        """def defaite():
+    mouvement_possible = False
+    for i in range(len(configuration_courante)):
+        if configuration_courante[i][1] != 0 and configuration_courante[i][1] == (configuration_courante[(i-1)][1] or
+                                                                                  configuration_courante[(i+1)][1] or
+                                                                                  configuration_courante[(i-4)][1] or
+                                                                                  configuration_courante[(i+4)][1]):
+            mouvement_possible = True
+        elif configuration_courante[i][1] != 0 and not (configuration_courante[i][1] == (configuration_courante[(i-1)][1] or
+                                                                                         configuration_courante[(i+1)][1] or
+                                                                                         configuration_courante[(i-4)][1] or
+                                                                                         configuration_courante[(i+4)][1])):
+            mouvement_possible = False
+    return mouvement_possible"""
+
+"""def defaite():
+    mouvement_possible = True
+    for i in configuration_courante:
+        if i[0] == "A1":
+            if i[1] == configuration_courante[1][1] or i[1] == configuration_courante[4][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[1][1] and i[1] != configuration_courante[4][1]:
+                mouvement_possible = False
+        elif i[0] == "A2":
+            if i[1] == configuration_courante[0][1] or i[1] == configuration_courante[2][1] or i[1] == configuration_courante[5][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[0][1] and i[1] != configuration_courante[2][1] and i[1] != configuration_courante[5][1]:
+                mouvement_possible = False
+        elif i[0] == "A3":
+            if i[1] == configuration_courante[1][1] or i[1] == configuration_courante[3][1] or i[1] == configuration_courante[6][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[1][1] and i[1] != configuration_courante[3][1] and i[1] != configuration_courante[6][1]:
+                mouvement_possible = False
+        elif i[0] == "A4":
+            if i[1] == configuration_courante[2][1] or i[1] == configuration_courante[7][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[2][1] and i[1] != configuration_courante[7][1]:
+                mouvement_possible = False
+
+        elif i[0] == "B1":
+            if i[1] == configuration_courante[0][1] or i[1] == configuration_courante[5][1] or i[1] == configuration_courante[8][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[0][1] and i[1] != configuration_courante[5][1] and i[1] != configuration_courante[8][1]:
+                mouvement_possible = False
+        elif i[0] == "B2":
+            if i[1] == configuration_courante[1][1] or i[1] == configuration_courante[4][1] or i[1] == configuration_courante[6][1] or i[1] == configuration_courante[9][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[1][1] and i[1] != configuration_courante[4][1] and i[1] != configuration_courante[6][1] and i[1] != configuration_courante[9][1]:
+                mouvement_possible = False
+        elif i[0] == "B3":
+            if i[1] == configuration_courante[2][1] or i[1] == configuration_courante[5][1] or i[1] == configuration_courante[7][1] or i[1] == configuration_courante[10][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[2][1] and i[1] != configuration_courante[5][1] and i[1] != configuration_courante[7][1] and i[1] != configuration_courante[10][1]:
+                mouvement_possible = False
+        elif i[0] == "B4":
+            if i[1] == configuration_courante[3][1] or i[1] == configuration_courante[6][1] or i[1] == configuration_courante[11][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[3][1] and i[1] != configuration_courante[6][1] and i[1] != configuration_courante[11][1]:
+                mouvement_possible = False
+        
+        elif i[0] == "C1":
+            if i[1] == configuration_courante[4][1] or i[1] == configuration_courante[9][1] or i[1] == configuration_courante[12][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[4][1] and i[1] != configuration_courante[9][1] and i[1] != configuration_courante[12][1]:
+                mouvement_possible = False
+        elif i[0] == "C2":
+            if i[1] == configuration_courante[5][1] or i[1] == configuration_courante[8][1] or i[1] == configuration_courante[10][1] or i[1] == configuration_courante[13][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[5][1] and i[1] != configuration_courante[8][1] and i[1] != configuration_courante[10][1] and i[1] != configuration_courante[13][1]:
+                mouvement_possible = False
+        elif i[0] == "C3":
+            if i[1] == configuration_courante[6][1] or i[1] == configuration_courante[9][1] or i[1] == configuration_courante[11][1] or i[1] == configuration_courante[14][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[6][1] and i[1] != configuration_courante[9][1] and i[1] != configuration_courante[11][1] and i[1] != configuration_courante[14][1]:
+                mouvement_possible = False
+        elif i[0] == "C4":
+            if i[1] == configuration_courante[7][1] or i[1] == configuration_courante[10][1] or i[1] == configuration_courante[15][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[7][1] and i[1] != configuration_courante[10][1] and i[1] != configuration_courante[15][1]:
+                mouvement_possible = False
+
+        elif i[0] == "D1":
+            if i[1] == configuration_courante[8][1] or i[1] == configuration_courante[13][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[8][1] and i[1] != configuration_courante[13][1]:
+                mouvement_possible = False
+        elif i[0] == "D2":
+            if i[1] == configuration_courante[9][1] or i[1] == configuration_courante[12][1] or i[1] == configuration_courante[14][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[9][1] and i[1] != configuration_courante[12][1] and i[1] != configuration_courante[14][1]:
+                mouvement_possible = False
+        elif i[0] == "D3":
+            if i[1] == configuration_courante[10][1] or i[1] == configuration_courante[13][1] or i[1] == configuration_courante[15][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[10][1] and i[1] != configuration_courante[13][1] and i[1] != configuration_courante[15][1]:
+                mouvement_possible = False
+        elif i[0] == "D4":
+            if i[1] == configuration_courante[11][1] or i[1] == configuration_courante[14][1]:
+                mouvement_possible = True
+                return mouvement_possible
+            elif i[1] != configuration_courante[11][1] and i[1] != configuration_courante[14][1]:
+                mouvement_possible = False
+    return mouvement_possible"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ###################################
+# Import des librairies
+
+
+from cProfile import label
+import tkinter as tk
+from turtle import bgcolor
+import random as rd
+import time
+
+
+###################################
+# Constantes
+
+LARGEUR_TUILE = 125
+LONGUEUR_TUILE = 125
+
+position = {
+    "A1": [0, 0, 125, 125], "A2": [125, 0, 250, 125], "A3": [250, 0, 375, 125], "A4": [375, 0, 500, 125],
+    "B1": [0, 125, 125, 250], "B2": [125, 125, 250, 250], "B3": [250, 125, 375, 250], "B4": [375, 125, 500, 250],
+    "C1": [0, 250, 125, 375], "C2": [125, 250, 250, 375], "C3": [250, 250, 375, 375], "C4": [375, 250, 500, 375],
+    "D1": [0, 375, 125, 500], "D2": [125, 375, 250, 500], "D3": [250, 375, 375, 500], "D4": [375, 375, 500, 500]
+} # référence des coordonnées possible pour les tuiles
+
+couleurs = {
+    2: (240, 228, 217),
+    4: (239, 225, 199),
+    8: (253, 175, 113),
+    16: (255, 143, 86),
+    32: (255, 112, 82),
+    64: (255, 72, 20),
+    128: (240, 210, 107),
+    256: (240, 207, 88),
+    512: (241, 203, 65),
+    1024: (242, 200, 40),
+    2048: (242, 197, 0),
+    4096: (242, 197, 0),
+    8192: (242, 197, 0),
+    16384: (242, 197, 0),
+    32768: (242, 197, 0),
+    65536: (242, 197, 0),
+    131072: (242, 197, 0),
+}
+
+
+###################################
+# Variables globales
+
+configuration_courante = [
+    ["A1", 0, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
+    ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
+    ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
+    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
+] # liste qui contient en permanence la configuration de la grille
+# un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
+#0["A1", 0, 0, 0], 1["A2", 0, 0, 0], 2["A3", 0, 0, 0], 3["A4", 0, 0, 0], 4["B1", 0, 0, 0], 5["B2", 0, 0, 0], 6["B3", 0, 0, 0], 7["B4", 0, 0, 0], 8["C1", 0, 0, 0], 9["C2", 0, 0, 0], 10["C3", 0, 0, 0], 11["C4", 0, 0, 0], 12["D1", 0, 0, 0], 13["D2", 0, 0, 0], 14["D3", 0, 0, 0], 15["D4", 0, 0, 0]
+
+"""configuration_courante = [
+    ["A1", 2, 0, 0], ["A2", 2, 0, 0], ["A3", 8, 0, 0], ["A4", 16, 0, 0],
+    ["B1", 32, 0, 0], ["B2", 64, 0, 0], ["B3", 128, 0, 0], ["B4", 256, 0, 0],
+    ["C1", 512, 0, 0], ["C2", 2, 0, 0], ["C3", 4, 0, 0], ["C4", 8, 0, 0],
+    ["D1", 16, 0, 0], ["D2", 32, 0, 0], ["D3", 64, 0, 0], ["D4", 128, 0, 0]
+]"""
+
+score = 0
+
+
+###################################
+# Définition des fonctions
+
+def print_configuration_courante():
+    print()
+    print(configuration_courante[0][1], configuration_courante[1][1], configuration_courante[2][1], configuration_courante[3][1])
+    print(configuration_courante[4][1], configuration_courante[5][1], configuration_courante[6][1], configuration_courante[7][1])
+    print(configuration_courante[8][1], configuration_courante[9][1], configuration_courante[10][1], configuration_courante[11][1])
+    print(configuration_courante[12][1], configuration_courante[13][1], configuration_courante[14][1], configuration_courante[15][1])
+
+
+def rgb_hack(rgb):
+    """Fonction qui permet de travailler avec des couleurs RGB (https://pythonguides.com/python-tkinter-colors/)."""
+    return "#%02x%02x%02x" % rgb
+
+
+def spawner_tuile_aleatoire():
+    configuration_courante_copie = []
+    configuration_courante_copie == list(configuration_courante)
+    cases_libres = []
+    for j in configuration_courante:
+        if j[1] == 0:
+            cases_libres.append(j)
+    case_choisie = rd.choice(cases_libres)
+    case_choisie[1] = rd.choice([2, 2, 2, 2, 2, 2, 2, 2, 2, 4])
+    affichage_configuration_courante()
+    print(len(cases_libres) - 1)
+    if configuration_courante_copie == configuration_courante:
+        print("pas de tuile spawned")
+    elif configuration_courante_copie != configuration_courante:
+        print("tuile spawned")
+    #eplacer_haut_futur()
+    #deplacer_bas_futur()
+    #deplacer_gauche_futur()
+    #deplacer_droite_futur()
+
+
+def deplacer_haut_futur():
+    deplacable_haut = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j-4][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j-4][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_haut = True
+    print("deplacable haut " + str(deplacable_haut))
+
+
+def deplacer_bas_futur():
+    deplacable_bas = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if j+4 <= 15 and i[1] != 0 and configuration_courante_copie[j+4][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j+4][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif j+4 <= 15 and i[1] != 0 and configuration_courante_copie[j+4][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j+4][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_bas = True
+    print("deplacable bas " + str(deplacable_bas))
+
+
+def deplacer_gauche_futur():
+    deplacable_gauche = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante_copie[j-1][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j-1][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante_copie[j-1][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j-1][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_gauche = True
+    print("deplacable gauche " + str(deplacable_gauche))
+
+
+def deplacer_droite_futur():
+    deplacable_droite = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante_copie[j+1][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j+1][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante_copie[j+1][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j+1][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_droite = True
+    print("deplacable droite " + str(deplacable_droite))
+
+
+def exterminatus():
+    tmp = canevas.find_all()
+    for x in tmp:
+        if any(x in i for i in configuration_courante):
+            #print(x, "est dans la config courante")
+            pass
+        elif any(x not in i for i in configuration_courante) and x not in [1, 2, 3, 4, 5, 6]:
+            #print(x, "est éliminable")
+            canevas.delete(x)
+
+
+victoire_var = 0
+def victoire():
+    tmp = [i[1] for i in configuration_courante]
+    if 2048 in tmp:
+        label_victoire.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
+        bouton_continuer.place(relx=0.2375, rely=0.58, anchor=tk.CENTER)
+        bouton_recommencer.place(relx=0.3625, rely=0.58, anchor=tk.CENTER)
+
+
+def continuer():
+    global bouton_continuer, bouton_recommencer, victoire_var
+    label_victoire.destroy()
+    bouton_continuer.destroy()
+    bouton_recommencer.destroy()
+    victoire_var = 1
+
+
+def recommencer():
+    tmp = canevas.find_all()
+    for x in tmp[6:]:
+        canevas.delete(x)
+    for i in configuration_courante:
+        i[1], i[2], i[3] = 0, 0, 0
+    continuer()
+    spawner_tuile_aleatoire()
+    spawner_tuile_aleatoire()
+
+
+def affichage_configuration_courante():
+    """Met à jour la grille affichée en consultant la configuration courante.
+       Appelée à chaque fin de déplacement."""
+    for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
+        if i[1] != 0: #and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
+            i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]))
+            # ajoute à la config courante un objet rectangle et l'affiche sur la grille
+            i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black", font=('Helvetica','30'))
+            # ajoute un text avec la valeur de la tuile à la config courante et l'affiche sur la grille
+    #print_configuration_courante()
+    #print(canevas.find_all())
+    exterminatus()
+    affichage_score()
+    if victoire_var == 0:
+        victoire()
+    print_configuration_courante()
+
+
+playable = 0
+def play():
+    global playable
+    if playable == 0:
+        spawner_tuile_aleatoire()
+        spawner_tuile_aleatoire()
+    playable = 1
+
+
+def affichage_score():
+    global score
+    label_score.config(text=("score : " + str(score)))
+
+
+def deplacer_haut():
+    """Déplace toutes les tuiles vers le haut si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0: # si la tuile n'est pas au bord et si la case cible est libre
+                configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]: # si la tuile n'est pas au bord et si la case cible est occupé de valeur égale
+                configuration_courante[j-4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j-4][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+    #print(score)
+
+
+def deplacer_haut_clavier(event):
+    deplacer_haut()
+
+
+def deplacer_bas():
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
+                configuration_courante[j+4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j+4][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
+
+def deplacer_bas_clavier(event):
+    deplacer_bas()
+
+
+def deplacer_gauche():
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
+                configuration_courante[j-1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j-1][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+    
+
+def deplacer_gauche_clavier(event):
+    deplacer_gauche()
+
+
+def deplacer_droite():
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
+                configuration_courante[j+1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j+1][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
+
+def deplacer_droite_clavier(event):
+    deplacer_droite()
+
+
+###################################
+# Programme principal
+
+## définitions des widgets
+racine = tk.Tk()
+racine.configure(bg=rgb_hack((30, 30, 30)))
+racine.title('2048')
+racine.geometry('1000x600+200+100')
+racine.resizable(False, False)
+
+canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)),bd=0, highlightthickness=2, \
+                    highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
+
+bouton_haut = tk.Button(racine, text="↑", command=deplacer_haut, font=('Helvetica','15'))
+bouton_bas = tk.Button(racine, text="↓", command=deplacer_bas, font=('Helvetica','15'))
+bouton_gauche = tk.Button(racine, text="←", command=deplacer_gauche, font=('Helvetica','15'))
+bouton_droite = tk.Button(racine, text="→", command=deplacer_droite, font=('Helvetica','15'))
+
+bouton_play = tk.Button(racine, text="Play", command=play, font=('Helvetica','15'))
+bouton_exit = tk.Button(racine, text="Exit", command=racine.destroy, font=('Helvetica','15'))
+bouton_save = tk.Button(racine, text="Save", font=('Helvetica','15'))
+bouton_load = tk.Button(racine, text="Load", font=('Helvetica','15'))
+
+bouton_spawn = tk.Button(racine, text="spawn", command=spawner_tuile_aleatoire)
+bouton_config = tk.Button(racine, text="config", command=affichage_configuration_courante)
+
+label_score = tk.Label(racine, text="score : 0", font=('Helvetica','15'))
+
+label_victoire = tk.Label(racine, text=("Victoire ! Vous avez atteint la tuile 2048.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous continuer à jouer ?"), font=('Helvetica','15'))
+bouton_continuer = tk.Button(racine, text=("Continuer"), font=('Helvetica','15'), command=continuer)
+bouton_recommencer = tk.Button(racine, text=("Recommencer"), font=('Helvetica','15'), command=recommencer)
+
+label_defaite = tk.Label(racine, text=("Défaite ! Plus de mouvement possible.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous recommencer ?"), font=('Helvetica','15'))
+bouton_quitter = tk.Button(racine, text=("Quitter"), font=('Helvetica','15'), command=racine.destroy)
+
+## placement des widgets
+canevas.place(x=50, y=50)
+for x in range(3): # création des lignes
+    canevas.create_line(125*(x+1), 0, 125*(x+1), 502, fill=rgb_hack((0, 0, 0)), width=2)
+for y in range(3): # idem
+    canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
+#bouton_haut.place(x=750, y=250)
+bouton_haut.place(relx=0.775, rely=0.45, anchor=tk.CENTER)
+bouton_bas.place(relx=0.775, rely=0.55, anchor=tk.CENTER)
+bouton_gauche.place(relx=0.75, rely=0.5, anchor=tk.CENTER)
+bouton_droite.place(relx=0.8, rely=0.5, anchor=tk.CENTER)
+
+bouton_play.place(relx=0.7, rely=0.7, anchor=tk.CENTER)
+bouton_exit.place(relx=0.75, rely=0.7, anchor=tk.CENTER)
+bouton_save.place(relx=0.8, rely=0.7, anchor=tk.CENTER)
+bouton_load.place(relx=0.85, rely=0.7, anchor=tk.CENTER)
+
+label_score.place(relx=0.2375, rely=0.04, anchor=tk.CENTER)
+
+
+racine.bind('<z>', deplacer_haut_clavier)
+racine.bind('<s>', deplacer_bas_clavier)
+racine.bind('<q>', deplacer_gauche_clavier)
+racine.bind('<d>', deplacer_droite_clavier)
+
+racine.bind('<Up>', deplacer_haut_clavier)
+racine.bind('<Down>', deplacer_bas_clavier)
+racine.bind('<Left>', deplacer_gauche_clavier)
+racine.bind('<Right>', deplacer_droite_clavier)
+
+#bouton_exterminatus.place(relx=0.775, rely=0.9, anchor=tk.CENTER)
+
+#bouton_spawn.place(x=700, y=400)
+#bouton_config.place(x=700, y =500)
+
+## boucle principale
+affichage_configuration_courante()
+tk.mainloop()
+
+
+
+
+
+
+
+
+
+
+###################################
+# Import des librairies
+
+
+from cProfile import label
+import tkinter as tk
+from turtle import bgcolor
+import random as rd
+import time
+
+
+###################################
+# Constantes
+
+LARGEUR_TUILE = 125
+LONGUEUR_TUILE = 125
+
+position = {
+    "A1": [0, 0, 125, 125], "A2": [125, 0, 250, 125], "A3": [250, 0, 375, 125], "A4": [375, 0, 500, 125],
+    "B1": [0, 125, 125, 250], "B2": [125, 125, 250, 250], "B3": [250, 125, 375, 250], "B4": [375, 125, 500, 250],
+    "C1": [0, 250, 125, 375], "C2": [125, 250, 250, 375], "C3": [250, 250, 375, 375], "C4": [375, 250, 500, 375],
+    "D1": [0, 375, 125, 500], "D2": [125, 375, 250, 500], "D3": [250, 375, 375, 500], "D4": [375, 375, 500, 500]
+} # référence des coordonnées possible pour les tuiles
+
+couleurs = {
+    2: (240, 228, 217),
+    4: (239, 225, 199),
+    8: (253, 175, 113),
+    16: (255, 143, 86),
+    32: (255, 112, 82),
+    64: (255, 72, 20),
+    128: (240, 210, 107),
+    256: (240, 207, 88),
+    512: (241, 203, 65),
+    1024: (242, 200, 40),
+    2048: (242, 197, 0),
+    4096: (242, 197, 0),
+    8192: (242, 197, 0),
+    16384: (242, 197, 0),
+    32768: (242, 197, 0),
+    65536: (242, 197, 0),
+    131072: (242, 197, 0),
+}
+
+
+###################################
+# Variables globales
+
+configuration_courante = [
+    ["A1", 0, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
+    ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
+    ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
+    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
+] # liste qui contient en permanence la configuration de la grille
+# un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
+#0["A1", 0, 0, 0], 1["A2", 0, 0, 0], 2["A3", 0, 0, 0], 3["A4", 0, 0, 0], 4["B1", 0, 0, 0], 5["B2", 0, 0, 0], 6["B3", 0, 0, 0], 7["B4", 0, 0, 0], 8["C1", 0, 0, 0], 9["C2", 0, 0, 0], 10["C3", 0, 0, 0], 11["C4", 0, 0, 0], 12["D1", 0, 0, 0], 13["D2", 0, 0, 0], 14["D3", 0, 0, 0], 15["D4", 0, 0, 0]
+
+"""configuration_courante = [
+    ["A1", 2, 0, 0], ["A2", 2, 0, 0], ["A3", 8, 0, 0], ["A4", 16, 0, 0],
+    ["B1", 32, 0, 0], ["B2", 64, 0, 0], ["B3", 128, 0, 0], ["B4", 256, 0, 0],
+    ["C1", 512, 0, 0], ["C2", 2, 0, 0], ["C3", 4, 0, 0], ["C4", 8, 0, 0],
+    ["D1", 16, 0, 0], ["D2", 32, 0, 0], ["D3", 64, 0, 0], ["D4", 128, 0, 0]
+]"""
+
+score = 0
+
+
+###################################
+# Définition des fonctions
+
+def print_configuration_courante():
+    print()
+    print(configuration_courante[0][1], configuration_courante[1][1], configuration_courante[2][1], configuration_courante[3][1])
+    print(configuration_courante[4][1], configuration_courante[5][1], configuration_courante[6][1], configuration_courante[7][1])
+    print(configuration_courante[8][1], configuration_courante[9][1], configuration_courante[10][1], configuration_courante[11][1])
+    print(configuration_courante[12][1], configuration_courante[13][1], configuration_courante[14][1], configuration_courante[15][1])
+
+
+def rgb_hack(rgb):
+    """Fonction qui permet de travailler avec des couleurs RGB (https://pythonguides.com/python-tkinter-colors/)."""
+    return "#%02x%02x%02x" % rgb
+
+
+def spawner_tuile_aleatoire():
+    configuration_courante_copie = []
+    configuration_courante_copie == list(configuration_courante)
+    cases_libres = []
+    for j in configuration_courante:
+        if j[1] == 0:
+            cases_libres.append(j)
+    case_choisie = rd.choice(cases_libres)
+    case_choisie[1] = rd.choice([2, 2, 2, 2, 2, 2, 2, 2, 2, 4])
+    print(len(cases_libres) - 1)
+    if configuration_courante_copie == configuration_courante:
+        print("pas de tuile spawned")
+    elif configuration_courante_copie != configuration_courante:
+        print("tuile spawned")
+    if len(cases_libres)-1 == 0:
+        mouvement_possible()
+    #affichage_configuration_courante()
+    #eplacer_haut_futur()
+    #deplacer_bas_futur()
+    #deplacer_gauche_futur()
+    #deplacer_droite_futur()
+
+
+def deplacer_haut_futur():
+    deplacable_haut = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j-4][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j-4][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_haut = True
+    print("deplacable haut " + str(deplacable_haut))
+
+
+def deplacer_bas_futur():
+    deplacable_bas = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if j+4 <= 15 and i[1] != 0 and configuration_courante_copie[j+4][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j+4][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif j+4 <= 15 and i[1] != 0 and configuration_courante_copie[j+4][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j+4][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_bas = True
+    print("deplacable bas " + str(deplacable_bas))
+
+
+def deplacer_gauche_futur():
+    deplacable_gauche = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante_copie[j-1][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j-1][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante_copie[j-1][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j-1][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_gauche = True
+    print("deplacable gauche " + str(deplacable_gauche))
+
+
+def deplacer_droite_futur():
+    deplacable_droite = False
+    configuration_courante_copie = []
+    configuration_courante_copie = list(configuration_courante)
+    for i in range(3):
+        for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante_copie[j+1][1] == 0:
+                configuration_courante_copie[j][1], configuration_courante_copie[j+1][1] = 0, i[1]
+                i[2], i[3] = 0, 0
+            elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante_copie[j+1][1] == configuration_courante_copie[j][1]:
+                configuration_courante_copie[j+1][1] += configuration_courante_copie[j][1]
+                configuration_courante_copie[j][1] = 0
+                i[2], i[3] = 0, 0
+    if configuration_courante_copie != configuration_courante:
+        deplacable_droite = True
+    print("deplacable droite " + str(deplacable_droite))
+
+
+def mouvement_possible():
+    configuration_courante_copie = configuration_courante.copy()
+    for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+        if j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == 0:
+            configuration_courante_copie[j][1], configuration_courante_copie[j-4][1] = 0, i[1]
+            i[2], i[3] = 0, 0
+        elif j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == configuration_courante_copie[j][1]:
+            configuration_courante_copie[j-4][1] += configuration_courante_copie[j][1]
+            configuration_courante_copie[j][1] = 0
+            i[2], i[3] = 0, 0
+    for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+        if j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == 0:
+            configuration_courante_copie[j][1], configuration_courante_copie[j-4][1] = 0, i[1]
+            i[2], i[3] = 0, 0
+        elif j-4 >= 0 and i[1] != 0 and configuration_courante_copie[j-4][1] == configuration_courante_copie[j][1]:
+            configuration_courante_copie[j-4][1] += configuration_courante_copie[j][1]
+            configuration_courante_copie[j][1] = 0
+            i[2], i[3] = 0, 0
+    for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+        if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante_copie[j-1][1] == 0:
+            configuration_courante_copie[j][1], configuration_courante_copie[j-1][1] = 0, i[1]
+            i[2], i[3] = 0, 0
+        elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante_copie[j-1][1] == configuration_courante_copie[j][1]:
+            configuration_courante_copie[j-1][1] += configuration_courante_copie[j][1]
+            configuration_courante_copie[j][1] = 0
+            i[2], i[3] = 0, 0
+    for i, j in zip(configuration_courante_copie, range(len(configuration_courante_copie))):
+        if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante_copie[j+1][1] == 0:
+            configuration_courante_copie[j][1], configuration_courante_copie[j+1][1] = 0, i[1]
+            i[2], i[3] = 0, 0
+        elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante_copie[j+1][1] == configuration_courante_copie[j][1]:
+            configuration_courante_copie[j+1][1] += configuration_courante_copie[j][1]
+            configuration_courante_copie[j][1] = 0
+            i[2], i[3] = 0, 0
+    print("configuration courante :")
+    print_configuration_courante()
+    print("configuration courante copie :")
+    print(configuration_courante_copie[0][1], configuration_courante_copie[1][1], configuration_courante_copie[2][1], configuration_courante_copie[3][1])
+    print(configuration_courante_copie[4][1], configuration_courante_copie[5][1], configuration_courante_copie[6][1], configuration_courante_copie[7][1])
+    print(configuration_courante_copie[8][1], configuration_courante_copie[9][1], configuration_courante_copie[10][1], configuration_courante_copie[11][1])
+    print(configuration_courante_copie[12][1], configuration_courante_copie[13][1], configuration_courante_copie[14][1], configuration_courante_copie[15][1])
+
+
+def exterminatus():
+    tmp = canevas.find_all()
+    for x in tmp:
+        if any(x in i for i in configuration_courante):
+            #print(x, "est dans la config courante")
+            pass
+        elif any(x not in i for i in configuration_courante) and x not in [1, 2, 3, 4, 5, 6]:
+            #print(x, "est éliminable")
+            canevas.delete(x)
+
+
+victoire_var = 0
+def victoire():
+    tmp = [i[1] for i in configuration_courante]
+    if 2048 in tmp:
+        label_victoire.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
+        bouton_continuer.place(relx=0.2375, rely=0.58, anchor=tk.CENTER)
+        bouton_recommencer.place(relx=0.3625, rely=0.58, anchor=tk.CENTER)
+
+
+def continuer():
+    global bouton_continuer, bouton_recommencer, victoire_var
+    label_victoire.destroy()
+    bouton_continuer.destroy()
+    bouton_recommencer.destroy()
+    victoire_var = 1
+
+
+def recommencer():
+    tmp = canevas.find_all()
+    for x in tmp[6:]:
+        canevas.delete(x)
+    for i in configuration_courante:
+        i[1], i[2], i[3] = 0, 0, 0
+    continuer()
+    spawner_tuile_aleatoire()
+    spawner_tuile_aleatoire()
+
+
+def affichage_configuration_courante():
+    """Met à jour la grille affichée en consultant la configuration courante.
+       Appelée à chaque fin de déplacement."""
+    for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
+        if i[1] != 0: #and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
+            i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]))
+            # ajoute à la config courante un objet rectangle et l'affiche sur la grille
+            i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black", font=('Helvetica','30'))
+            # ajoute un text avec la valeur de la tuile à la config courante et l'affiche sur la grille
+    #print_configuration_courante()
+    #print(canevas.find_all())
+    exterminatus()
+    affichage_score()
+    if victoire_var == 0:
+        victoire()
+    print_configuration_courante()
+
+
+playable = 0
+def play():
+    global playable
+    if playable == 0:
+        spawner_tuile_aleatoire()
+        spawner_tuile_aleatoire()
+    playable = 1
+
+
+def affichage_score():
+    global score
+    label_score.config(text=("score : " + str(score)))
+
+
+def deplacer_haut():
+    """Déplace toutes les tuiles vers le haut si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0: # si la tuile n'est pas au bord et si la case cible est libre
+                configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]: # si la tuile n'est pas au bord et si la case cible est occupé de valeur égale
+                configuration_courante[j-4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j-4][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+    #print(score)
+
+
+def deplacer_haut_clavier(event):
+    deplacer_haut()
+
+
+def deplacer_bas():
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
+                configuration_courante[j+4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j+4][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
+
+def deplacer_bas_clavier(event):
+    deplacer_bas()
+
+
+def deplacer_gauche():
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
+                configuration_courante[j-1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j-1][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+    
+
+def deplacer_gauche_clavier(event):
+    deplacer_gauche()
+
+
+def deplacer_droite():
+    global score
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
+                configuration_courante[j+1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+                score += configuration_courante[j+1][1]
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+
+
+def deplacer_droite_clavier(event):
+    deplacer_droite()
+
+
+###################################
+# Programme principal
+
+## définitions des widgets
+racine = tk.Tk()
+racine.configure(bg=rgb_hack((30, 30, 30)))
+racine.title('2048')
+racine.geometry('1000x600+200+100')
+racine.resizable(False, False)
+
+canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)),bd=0, highlightthickness=2, \
+                    highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
+
+bouton_haut = tk.Button(racine, text="↑", command=deplacer_haut, font=('Helvetica','15'))
+bouton_bas = tk.Button(racine, text="↓", command=deplacer_bas, font=('Helvetica','15'))
+bouton_gauche = tk.Button(racine, text="←", command=deplacer_gauche, font=('Helvetica','15'))
+bouton_droite = tk.Button(racine, text="→", command=deplacer_droite, font=('Helvetica','15'))
+
+bouton_play = tk.Button(racine, text="Play", command=play, font=('Helvetica','15'))
+bouton_exit = tk.Button(racine, text="Exit", command=racine.destroy, font=('Helvetica','15'))
+bouton_save = tk.Button(racine, text="Save", font=('Helvetica','15'))
+bouton_load = tk.Button(racine, text="Load", font=('Helvetica','15'))
+
+bouton_spawn = tk.Button(racine, text="spawn", command=spawner_tuile_aleatoire)
+bouton_config = tk.Button(racine, text="config", command=affichage_configuration_courante)
+
+label_score = tk.Label(racine, text="score : 0", font=('Helvetica','15'))
+
+label_victoire = tk.Label(racine, text=("Victoire ! Vous avez atteint la tuile 2048.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous continuer à jouer ?"), font=('Helvetica','15'))
+bouton_continuer = tk.Button(racine, text=("Continuer"), font=('Helvetica','15'), command=continuer)
+bouton_recommencer = tk.Button(racine, text=("Recommencer"), font=('Helvetica','15'), command=recommencer)
+
+label_defaite = tk.Label(racine, text=("Défaite ! Plus de mouvement possible.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous recommencer ?"), font=('Helvetica','15'))
+bouton_quitter = tk.Button(racine, text=("Quitter"), font=('Helvetica','15'), command=racine.destroy)
+
+## placement des widgets
+canevas.place(x=50, y=50)
+for x in range(3): # création des lignes
+    canevas.create_line(125*(x+1), 0, 125*(x+1), 502, fill=rgb_hack((0, 0, 0)), width=2)
+for y in range(3): # idem
+    canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
+#bouton_haut.place(x=750, y=250)
+bouton_haut.place(relx=0.775, rely=0.45, anchor=tk.CENTER)
+bouton_bas.place(relx=0.775, rely=0.55, anchor=tk.CENTER)
+bouton_gauche.place(relx=0.75, rely=0.5, anchor=tk.CENTER)
+bouton_droite.place(relx=0.8, rely=0.5, anchor=tk.CENTER)
+
+bouton_play.place(relx=0.7, rely=0.7, anchor=tk.CENTER)
+bouton_exit.place(relx=0.75, rely=0.7, anchor=tk.CENTER)
+bouton_save.place(relx=0.8, rely=0.7, anchor=tk.CENTER)
+bouton_load.place(relx=0.85, rely=0.7, anchor=tk.CENTER)
+
+label_score.place(relx=0.2375, rely=0.04, anchor=tk.CENTER)
+
+
+racine.bind('<z>', deplacer_haut_clavier)
+racine.bind('<s>', deplacer_bas_clavier)
+racine.bind('<q>', deplacer_gauche_clavier)
+racine.bind('<d>', deplacer_droite_clavier)
+
+racine.bind('<Up>', deplacer_haut_clavier)
+racine.bind('<Down>', deplacer_bas_clavier)
+racine.bind('<Left>', deplacer_gauche_clavier)
+racine.bind('<Right>', deplacer_droite_clavier)
+
+#bouton_exterminatus.place(relx=0.775, rely=0.9, anchor=tk.CENTER)
+
+#bouton_spawn.place(x=700, y=400)
+#bouton_config.place(x=700, y =500)
+
+## boucle principale
+affichage_configuration_courante()
+tk.mainloop()
+
+
+
+
+
+
+
+# objectif pour 31 avril : assigner les fonctions de deplacement à des boutons et à des touches du clavier
+# faire apparaitre une tuile aléatoire à chaque déplacement
+# créer l'évènement victoire et défaite (si 2048 ou si plus aucun déplacement possible)
+
+
+###################################
+# Import des librairies
+
+import tkinter as tk
+from turtle import bgcolor
+import random as rd
+import json
+
+from sympy import total_degree
+
+
+###################################
+# Constantes
+
+LARGEUR_TUILE = 125
+LONGUEUR_TUILE = 125
+lancement = 0
+total = 0
+position = {
+    "A1": [0, 0, 125, 125], "A2": [125, 0, 250, 125], "A3": [250, 0, 375, 125], "A4": [375, 0, 500, 125],
+    "B1": [0, 125, 125, 250], "B2": [125, 125, 250, 250], "B3": [250, 125, 375, 250], "B4": [375, 125, 500, 250],
+    "C1": [0, 250, 125, 375], "C2": [125, 250, 250, 375], "C3": [250, 250, 375, 375], "C4": [375, 250, 500, 375],
+    "D1": [0, 375, 125, 500], "D2": [125, 375, 250, 500], "D3": [250, 375, 375, 500], "D4": [375, 375, 500, 500]
+} # référence des coordonnées possible pour les tuiles
+
+couleurs = {
+    2: (240, 228, 217),
+    4: (239, 225, 199),
+    8: (253, 175, 113),
+    16: (255, 143, 86),
+    32: (255, 112, 82),
+    64: (255, 72, 20),
+    128: (240, 210, 107),
+    256: (240, 207, 88),
+    512: (241, 203, 65),
+    1024: (242, 200, 40),
+    2048: (242, 197, 0)
+}
+
+
+###################################
+# Variables globales
+
+data = {}
+
+configuration_courante = [
+    ["A1", 2, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
+    ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
+    ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
+    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
+] # liste qui contient en permanence la configuration de la grille
+# un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
+
+data = {'config': configuration_courante}
+
+
+###################################
+# Définition des fonctions
+
+def print_configuration_courante():
+    print()
+    print(configuration_courante[0], configuration_courante[1], configuration_courante[2], configuration_courante[3])
+    print(configuration_courante[4], configuration_courante[5], configuration_courante[6], configuration_courante[7])
+    print(configuration_courante[8], configuration_courante[9], configuration_courante[10], configuration_courante[11])
+    print(configuration_courante[12], configuration_courante[13], configuration_courante[14], configuration_courante[15])
+
+
+def rgb_hack(rgb):
+    """Fonction qui permet de travailler avec des couleurs RGB (https://pythonguides.com/python-tkinter-colors/)."""
+    return "#%02x%02x%02x" % rgb
+
+
+def spawner_tuile_aleatoire():
+    cases_libres = []
+    for j in configuration_courante:
+        if j[1] == 0:
+            cases_libres.append(j)
+    case_choisie = rd.choice(cases_libres)
+    case_choisie[1] = rd.choice([2, 4])
+    affichage_configuration_courante()
+
+
+def affichage_configuration_courante():
+    """Met à jour la grille affichée en consultant la configuration courante.
+       Appelée à chaque fin de déplacement."""
+    print_configuration_courante()
+    for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
+        #if i[1] != 0 and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
+        if i[1] != 0: #and i[2] == 0:
+            i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]))
+            # ajoute à la config courante un objet rectangle et l'affiche sur la grille
+            i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black")
+            # ajoute un text avec la valeur de la tuile à la config courante et l'affiche sur la grille
+
+
+def deplacer_haut():
+    """Déplace toutes les tuiles vers le haut si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == 0: # si la tuile n'est pas au bord et si la case cible est libre
+                configuration_courante[j][1], configuration_courante[j-4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j-4 >= 0 and i[1] != 0 and configuration_courante[j-4][1] == configuration_courante[j][1]: # si la tuile n'est pas au bord et si la case cible est occupé de valeur égale
+                configuration_courante[j-4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+        print("spawn haut")
+        print()
+
+
+def deplacer_bas():
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+4][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif j+4 <= 15 and i[1] != 0 and configuration_courante[j+4][1] == configuration_courante[j][1]:
+                configuration_courante[j+4][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+        print("spawn bas")
+        print()
+
+
+def deplacer_gauche():
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j-1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 0 and j != 4 and j != 8 and j != 12) and i[1] != 0 and configuration_courante[j-1][1] == configuration_courante[j][1]:
+                configuration_courante[j-1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+        print("spawn gauche")
+        print()
+
+
+
+def deplacer_droite():
+    tmp = 0
+    for i in range(3):
+        for i, j in zip(configuration_courante, range(len(configuration_courante))):
+            if (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == 0:
+                configuration_courante[j][1], configuration_courante[j+1][1] = 0, i[1]
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+            elif (j != 3 and j != 7 and j != 11 and j != 15) and i[1] != 0 and configuration_courante[j+1][1] == configuration_courante[j][1]:
+                configuration_courante[j+1][1] += configuration_courante[j][1]
+                configuration_courante[j][1] = 0
+                canevas.delete(i[2])
+                canevas.delete(i[3])
+                i[2], i[3] = 0, 0
+                tmp = 1
+    affichage_configuration_courante()
+    if tmp == 1:
+        spawner_tuile_aleatoire()
+        print("spawn droit")
+        print()
+
+def save_config(config_file, data):
+    with open('etat_var.json', 'w') as f: #Permet de créer une sauvegarde en enregistrant l'état des variables dans un fichier .json
+        json.dump(data, f)
+
+def load_config (config_file):
+    with open(config_file, 'r') as f: #Permet d'ouvrir le fichier crée afin de récupérer les variables de la sauvegarde
+        data = json.load(f)
+    return data
+
+def jouer():        #fonction permettant de lancer le jeu mais n'est pas encore terminer
+    lancement == 1
+    bouton_play.after(100, bouton_play.destroy)
+
+def stop():
+    global total
+    canevas.create_rectangle(200, 210, 320, 290, fill = "grey")
+    for i in range((len(configuration_courante))-1):    
+        total = total + configuration_courante[i][1]        #prend les valeurs des tuiles pour en faire la somme
+    canevas.create_text(250, 250, text="score =")           #affiche le résultat final
+    canevas.create_text(283, 250, text= total)
+    bouton_stop.after(100, bouton_haut.destroy) #supprime les boutons permettant de jouer
+    bouton_stop.after(100, bouton_bas.destroy)
+    bouton_stop.after(100, bouton_droite.destroy)
+    bouton_stop.after(100, bouton_gauche.destroy)
+    bouton_stop.after(100, bouton_play.destroy)
+    bouton_stop.after(100, bouton_load.destroy)
+    bouton_stop.after(100, sauvegarde.destroy)
+    bouton_stop.after(100, bouton_stop.destroy)
+
+
+
+###################################
+# Programme principal
+
+## définitions des widgets
+racine = tk.Tk()
+racine.configure(bg=rgb_hack((30, 30, 30)))
+racine.title('2048')
+racine.geometry('1000x600+200+100')
+
+canevas = tk.Canvas(racine, bg=rgb_hack((53, 53, 53)),bd=0, highlightthickness=2, \
+                    highlightbackground=rgb_hack((0, 0, 0)), height=500, width=500)
+
+bouton_play = tk.Button(racine, text="play", command = jouer)
+
+bouton_haut = tk.Button(racine, text="haut", command=deplacer_haut)
+bouton_bas = tk.Button(racine, text="bas", command=deplacer_bas)
+bouton_gauche = tk.Button(racine, text="gauche", command=deplacer_gauche)
+bouton_droite = tk.Button(racine, text="droite", command=deplacer_droite)
+bouton_spawn = tk.Button(racine, text="spawn", command=spawner_tuile_aleatoire)
+sauvegarde = tk.Button(racine, text="sauvegarder", command=lambda: save_config('etat_var.json', configuration_courante))
+bouton_load = tk.Button(racine, text="charger", command=lambda: load_config('etat_var.json'))
+save_config('etat_var.json', data)
+bouton_stop = tk.Button(racine, text="quitter", command=stop)
+## placement des widgets
+
+canevas.place(x=50, y=50)
+for x in range(3): # création des lignes
+    canevas.create_line(125*(x+1), 0, 125*(x+1), 502, fill=rgb_hack((0, 0, 0)), width=2)
+for y in range(3): # idem
+    canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
+
+
+bouton_haut.place(x=750, y=250)
+bouton_bas.place(x=750, y=350)
+bouton_gauche.place(x=700, y=300)
+bouton_droite.place(x=800, y=300)
+bouton_spawn.place(x=700, y=400)
+sauvegarde.place(x=850, y=450)
+bouton_load.place(x=900, y=500)
+bouton_stop.place(x=900, y=550)
+
+bouton_play.place(x=700, y=100)
+
+## boucle principale
+affichage_configuration_courante()
+tk.mainloop()
