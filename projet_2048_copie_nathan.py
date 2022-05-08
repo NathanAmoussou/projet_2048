@@ -1,11 +1,8 @@
 ###################################
 # Import des librairies
 
-
 import tkinter as tk
-from turtle import bgcolor
 import random as rd
-import time
 
 
 ###################################
@@ -19,7 +16,7 @@ position = {
     "B1": [0, 125, 125, 250], "B2": [125, 125, 250, 250], "B3": [250, 125, 375, 250], "B4": [375, 125, 500, 250],
     "C1": [0, 250, 125, 375], "C2": [125, 250, 250, 375], "C3": [250, 250, 375, 375], "C4": [375, 250, 500, 375],
     "D1": [0, 375, 125, 500], "D2": [125, 375, 250, 500], "D3": [250, 375, 375, 500], "D4": [375, 375, 500, 500]
-} # référence des coordonnées possible pour les tuiles
+}
 
 couleurs = {
     2: (240, 228, 217),
@@ -32,7 +29,13 @@ couleurs = {
     256: (240, 207, 88),
     512: (241, 203, 65),
     1024: (242, 200, 40),
-    2048: (242, 197, 0)
+    2048: (242, 197, 0),
+    4096: (242, 197, 0),
+    8192: (242, 197, 0),
+    16384: (242, 197, 0),
+    32768: (242, 197, 0),
+    65536: (242, 197, 0),
+    131072: (242, 197, 0),
 }
 
 
@@ -44,8 +47,7 @@ configuration_courante = [
     ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
     ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
     ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 1024, 0, 0], ["D4", 1024, 0, 0]
-] # liste qui contient en permanence la configuration de la grille
-# un élément de cette config prend la forme suivante ["coordonnées", valeur de tuile, rectangle de canevas, text de canevas]
+]
 
 score = 0
 
@@ -54,11 +56,12 @@ score = 0
 # Définition des fonctions
 
 def print_configuration_courante():
+    """Affiche dans le terminale la configuration courante proprement."""
     print()
-    print(configuration_courante[0], configuration_courante[1], configuration_courante[2], configuration_courante[3])
-    print(configuration_courante[4], configuration_courante[5], configuration_courante[6], configuration_courante[7])
-    print(configuration_courante[8], configuration_courante[9], configuration_courante[10], configuration_courante[11])
-    print(configuration_courante[12], configuration_courante[13], configuration_courante[14], configuration_courante[15])
+    print(configuration_courante[0][1], configuration_courante[1][1], configuration_courante[2][1], configuration_courante[3][1])
+    print(configuration_courante[4][1], configuration_courante[5][1], configuration_courante[6][1], configuration_courante[7][1])
+    print(configuration_courante[8][1], configuration_courante[9][1], configuration_courante[10][1], configuration_courante[11][1])
+    print(configuration_courante[12][1], configuration_courante[13][1], configuration_courante[14][1], configuration_courante[15][1])
 
 
 def rgb_hack(rgb):
@@ -67,6 +70,7 @@ def rgb_hack(rgb):
 
 
 def spawner_tuile_aleatoire():
+    """Fait apparaître une tuile aléatoire de valeur 2 ou 4 (lancée après chaque déplacement)."""
     cases_libres = []
     for j in configuration_courante:
         if j[1] == 0:
@@ -74,20 +78,21 @@ def spawner_tuile_aleatoire():
     case_choisie = rd.choice(cases_libres)
     case_choisie[1] = rd.choice([2, 2, 2, 2, 2, 2, 2, 2, 2, 4])
     affichage_configuration_courante()
-    
+
 
 def exterminatus():
+    """Corrige les erreurs d'affichage en cherchant et supprimant les objets du canevas qui n'ont pas d'équivalent dans la configuration courante."""
     tmp = canevas.find_all()
     for x in tmp:
         if any(x in i for i in configuration_courante):
-            print(x, "est dans la config courante")
+            pass
         elif any(x not in i for i in configuration_courante) and x not in [1, 2, 3, 4, 5, 6]:
-            #print(x, "est éliminable")
             canevas.delete(x)
 
 
 victoire_var = 0
 def victoire():
+    """Vérifie si les conditions de victoire sont présentes et le cas échéant affiche la fin du jeu (issue : victoire)."""
     tmp = [i[1] for i in configuration_courante]
     if 2048 in tmp:
         label_victoire.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
@@ -95,59 +100,61 @@ def victoire():
         bouton_recommencer.place(relx=0.3625, rely=0.58, anchor=tk.CENTER)
 
 
+def defaite():
+    """Déclenchée manuellement, affiche la fin du jeu (issue : défaite)."""
+    label_defaite.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
+    bouton_recommencer.place(relx=0.2375, rely=0.58, anchor=tk.CENTER)
+    bouton_quitter.place(relx=0.3625, rely=0.58, anchor=tk.CENTER)
+
+
 def continuer():
+    """Supprime les labels et boutons liés aux fin de jeu pour permettre au joueur de continuer à jouer après la victoire (2048)."""
     global bouton_continuer, bouton_recommencer, victoire_var
-    label_victoire.destroy()
-    bouton_continuer.destroy()
-    bouton_recommencer.destroy()
+    #label_victoire.destroy()
+    label_victoire.place(x=1500, y=900)
+    #bouton_continuer.destroy()
+    bouton_continuer.place(x=1500, y=900)
+    #bouton_recommencer.destroy()
+    bouton_recommencer.place(x=1500, y=900)
+    #label_defaite.destroy()
+    label_defaite.place(x=1500, y=900)
+    #bouton_quitter.destroy()
+    bouton_quitter.place(x=1500, y=900)
     victoire_var = 1
 
 
 def recommencer():
+    """Remet le score à 0, supprime toutes les valeurs de la configuration courante ainsi que toutes les tuiles."""
+    global score
     tmp = canevas.find_all()
     for x in tmp[6:]:
         canevas.delete(x)
     for i in configuration_courante:
         i[1], i[2], i[3] = 0, 0, 0
+    score = 0
     continuer()
     spawner_tuile_aleatoire()
     spawner_tuile_aleatoire()
-
-
-"""defaite_var = 0
-def defaite():
-    global defaite_var
-    for i in range(len(configuration_courante)):
-        if bool(configuration_courante[i][1]) == bool(configuration_courante[i-1][1]):
-            defaite_var = 1
-        elif bool(configuration_courante[i][1]) != bool(configuration_courante[i-1][1]) or configuration_courante[i][1] == configuration_courante[i-1][1]:
-            defaite_var = 0
-            break
-        print(defaite_var)
-    if defaite_var == 1:
-        print("perdue")"""
 
 
 def affichage_configuration_courante():
     """Met à jour la grille affichée en consultant la configuration courante.
        Appelée à chaque fin de déplacement."""
     for i in configuration_courante: # passe en revue toutes les tuiles de la config courante
-        if i[1] != 0: #and i[2] == 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
+        if i[1] != 0: # vérifie que la valeur de la tuile consultée est non nulle (si nulle, rien à afficher)
             i[2] = canevas.create_rectangle(position[i[0]], fill=rgb_hack(couleurs[i[1]]))
             # ajoute à la config courante un objet rectangle et l'affiche sur la grille
             i[3] = canevas.create_text(position[i[0]][0]+125//2, position[i[0]][3]-125//2, text=i[1], fill="black", font=('Helvetica','30'))
             # ajoute un text avec la valeur de la tuile à la config courante et l'affiche sur la grille
-    print_configuration_courante()
-    print(canevas.find_all())
     exterminatus()
     affichage_score()
     if victoire_var == 0:
         victoire()
-    #defaite()
 
 
 playable = 0
 def play():
+    """Ne peut être lancée qu'une fois, fait apparaître deux tuiles aléatoires."""
     global playable
     if playable == 0:
         spawner_tuile_aleatoire()
@@ -156,6 +163,7 @@ def play():
 
 
 def affichage_score():
+    """Affiche et tient à jour le score."""
     global score
     label_score.config(text=("score : " + str(score)))
 
@@ -183,14 +191,15 @@ def deplacer_haut():
     affichage_configuration_courante()
     if tmp == 1:
         spawner_tuile_aleatoire()
-    print(score)
 
 
 def deplacer_haut_clavier(event):
+    """Similaire à deplacer_haut mais utilisée par le raccourcis clavier."""
     deplacer_haut()
 
 
 def deplacer_bas():
+    """Déplace toutes les tuiles vers le bas si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
     global score
     tmp = 0
     for i in range(3):
@@ -215,10 +224,12 @@ def deplacer_bas():
 
 
 def deplacer_bas_clavier(event):
+    """Similaire à deplacer_bas mais utilisée par le raccourcis clavier."""
     deplacer_bas()
 
 
 def deplacer_gauche():
+    """Déplace toutes les tuiles vers la gauche si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
     global score
     tmp = 0
     for i in range(3):
@@ -243,10 +254,12 @@ def deplacer_gauche():
     
 
 def deplacer_gauche_clavier(event):
+    """Similaire à deplacer_gauche mais utilisée par le raccourcis clavier."""
     deplacer_gauche()
 
 
 def deplacer_droite():
+    """Déplace toutes les tuiles vers la droite si possible (en fonction de si la place est libre ou de si il faut fusionner)."""
     global score
     tmp = 0
     for i in range(3):
@@ -271,6 +284,7 @@ def deplacer_droite():
 
 
 def deplacer_droite_clavier(event):
+    """Similaire à deplacer_droite mais utilisée par le raccourcis clavier."""
     deplacer_droite()
 
 
@@ -302,10 +316,16 @@ bouton_config = tk.Button(racine, text="config", command=affichage_configuration
 
 label_score = tk.Label(racine, text="score : 0", font=('Helvetica','15'))
 
-label_victoire = tk.Label(racine, text=("Victoire ! Vous avez atteint la tuile 2048.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous continuer à jouer ?"),
-                          font=('Helvetica','15'))
+label_victoire = tk.Label(racine, text=("Victoire ! Vous avez atteint la tuile 2048.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous continuer à jouer ?"), font=('Helvetica','15'))
 bouton_continuer = tk.Button(racine, text=("Continuer"), font=('Helvetica','15'), command=continuer)
 bouton_recommencer = tk.Button(racine, text=("Recommencer"), font=('Helvetica','15'), command=recommencer)
+
+label_defaite = tk.Label(racine, text=("Défaite ! Vous avez déclaré forfait.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous recommencer ?"), font=('Helvetica','15'))
+
+#label_defaite = tk.Label(racine, text=("Défaite ! Plus de mouvement possible.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous recommencer ?"), font=('Helvetica','15'))
+bouton_quitter = tk.Button(racine, text=("Quitter"), font=('Helvetica','15'), command=racine.destroy)
+
+bouton_declarer_forfait = tk.Button(racine, text="Déclarer forfait", font=('Helvetica','15'), command=defaite)
 
 ## placement des widgets
 canevas.place(x=50, y=50)
@@ -313,7 +333,6 @@ for x in range(3): # création des lignes
     canevas.create_line(125*(x+1), 0, 125*(x+1), 502, fill=rgb_hack((0, 0, 0)), width=2)
 for y in range(3): # idem
     canevas.create_line(0, 125*(y+1), 502, 125*(y+1), fill=rgb_hack((0, 0, 0)), width=2)
-#bouton_haut.place(x=750, y=250)
 bouton_haut.place(relx=0.775, rely=0.45, anchor=tk.CENTER)
 bouton_bas.place(relx=0.775, rely=0.55, anchor=tk.CENTER)
 bouton_gauche.place(relx=0.75, rely=0.5, anchor=tk.CENTER)
@@ -324,8 +343,9 @@ bouton_exit.place(relx=0.75, rely=0.7, anchor=tk.CENTER)
 bouton_save.place(relx=0.8, rely=0.7, anchor=tk.CENTER)
 bouton_load.place(relx=0.85, rely=0.7, anchor=tk.CENTER)
 
-label_score.place(relx=0.2375, rely=0.04, anchor=tk.CENTER)
+label_score.place(relx=0.3, rely=0.04, anchor=tk.CENTER)
 
+bouton_declarer_forfait.place(relx=0.775, rely=0.8125, anchor=tk.CENTER)
 
 racine.bind('<z>', deplacer_haut_clavier)
 racine.bind('<s>', deplacer_bas_clavier)
@@ -336,11 +356,6 @@ racine.bind('<Up>', deplacer_haut_clavier)
 racine.bind('<Down>', deplacer_bas_clavier)
 racine.bind('<Left>', deplacer_gauche_clavier)
 racine.bind('<Right>', deplacer_droite_clavier)
-
-#bouton_exterminatus.place(relx=0.775, rely=0.9, anchor=tk.CENTER)
-
-#bouton_spawn.place(x=700, y=400)
-#bouton_config.place(x=700, y =500)
 
 ## boucle principale
 affichage_configuration_courante()
