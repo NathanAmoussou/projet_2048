@@ -50,8 +50,6 @@ configuration_courante = [
     ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
 ]
 
-data = {'config': configuration_courante}
-
 score = 0
 
 
@@ -186,16 +184,37 @@ def affichage_score():
     global score
     label_score.config(text=("score : " + str(score)))
 
+score_sauvegarde = 0
+def save_config():
+    global score_sauvegarde
+    score_sauvegarde = score
+    tmp = []
+    for i in configuration_courante:
+        tmp.append(i[1])
+    fic = open("sauvegarde.txt", "w")
+    for i in tmp:
+        fic.write(str(i) + " ")
+    fic.close()
 
-def save_config(config_file, data):
-    with open('etat_var.json', 'w') as f: #Permet de créer une sauvegarde en enregistrant l'état des variables dans un fichier .json
-        json.dump(data, f)
 
+def load_config ():
+    global score
+    score = score_sauvegarde
+    fic = open("sauvegarde.txt", "r")
+    tmp2 = canevas.find_all()
+    for x in tmp2[6:]:
+        canevas.delete(x)
+    for i in configuration_courante:
+        i[1], i[2], i[3] = 0, 0, 0
+    while True:
+        ligne = fic.readline()
+        if ligne == "":
+            break
+        tmp = ligne.split()
+    for i, j in zip(tmp, range(len(tmp))):
+        configuration_courante[j][1] = int(i)
+    affichage_configuration_courante()
 
-def load_config (config_file):
-    with open(config_file, 'r') as f: #Permet d'ouvrir le fichier crée afin de récupérer les variables de la sauvegarde
-        data = json.load(f)
-    print(data)
 
 
 def deplacer_haut():
