@@ -46,7 +46,7 @@ configuration_courante = [
     ["A1", 0, 0, 0], ["A2", 0, 0, 0], ["A3", 0, 0, 0], ["A4", 0, 0, 0],
     ["B1", 0, 0, 0], ["B2", 0, 0, 0], ["B3", 0, 0, 0], ["B4", 0, 0, 0],
     ["C1", 0, 0, 0], ["C2", 0, 0, 0], ["C3", 0, 0, 0], ["C4", 0, 0, 0],
-    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 1024, 0, 0], ["D4", 1024, 0, 0]
+    ["D1", 0, 0, 0], ["D2", 0, 0, 0], ["D3", 0, 0, 0], ["D4", 0, 0, 0]
 ]
 
 score = 0
@@ -100,41 +100,42 @@ def victoire():
         bouton_recommencer.place(relx=0.3625, rely=0.58, anchor=tk.CENTER)
 
 
-def defaite():
+def declarer_forfait():
     """Déclenchée manuellement, affiche la fin du jeu (issue : défaite)."""
     label_defaite.place(relx=0.3, rely=0.5, anchor=tk.CENTER)
     bouton_recommencer.place(relx=0.2375, rely=0.58, anchor=tk.CENTER)
     bouton_quitter.place(relx=0.3625, rely=0.58, anchor=tk.CENTER)
 
 
-def continuer():
-    """Supprime les labels et boutons liés aux fin de jeu pour permettre au joueur de continuer à jouer après la victoire (2048)."""
-    global bouton_continuer, bouton_recommencer, victoire_var
-    #label_victoire.destroy()
-    label_victoire.place(x=1500, y=900)
-    #bouton_continuer.destroy()
-    bouton_continuer.place(x=1500, y=900)
-    #bouton_recommencer.destroy()
-    bouton_recommencer.place(x=1500, y=900)
-    #label_defaite.destroy()
-    label_defaite.place(x=1500, y=900)
-    #bouton_quitter.destroy()
-    bouton_quitter.place(x=1500, y=900)
-    victoire_var = 1
-
-
 def recommencer():
-    """Remet le score à 0, supprime toutes les valeurs de la configuration courante ainsi que toutes les tuiles."""
+    """Supprime les labels et boutons liés aux fin de jeu, remet le score à 0, réinitialise la configuration courante et supprime toutes les tuiles."""
     global score
+    score = 0
     tmp = canevas.find_all()
     for x in tmp[6:]:
         canevas.delete(x)
     for i in configuration_courante:
         i[1], i[2], i[3] = 0, 0, 0
     score = 0
-    continuer()
+    label_victoire.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    bouton_continuer.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    label_defaite.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    bouton_recommencer.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    bouton_quitter.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    affichage_configuration_courante()
     spawner_tuile_aleatoire()
     spawner_tuile_aleatoire()
+
+
+def continuer():
+    """Supprime les labels et boutons liés aux fin de jeu pour permettre au joueur de continuer à jouer après la victoire (2048)."""
+    global victoire_var
+    label_victoire.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    bouton_continuer.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    bouton_recommencer.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    label_defaite.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    bouton_quitter.place(relx=1.5, rely=1.5, anchor=tk.CENTER)
+    victoire_var = 1
 
 
 def affichage_configuration_courante():
@@ -160,6 +161,21 @@ def play():
         spawner_tuile_aleatoire()
         spawner_tuile_aleatoire()
     playable = 1
+
+
+def play_clavier(event):
+    """Similaire à play() mais utilisée par le raccourcis clavier."""
+    play()
+
+
+def destroy_clavier(event):
+    """Détruit (ferme) la fenêter, utilisée par le clavier."""
+    racine.destroy()
+
+
+def declarer_forfait_clavier(event):
+    """Similaire à declarer_forfait() mais utilisée par le raccourcis clavier."""
+    declarer_forfait()
 
 
 def affichage_score():
@@ -325,7 +341,7 @@ label_defaite = tk.Label(racine, text=("Défaite ! Vous avez déclaré forfait.\
 #label_defaite = tk.Label(racine, text=("Défaite ! Plus de mouvement possible.\n Votre score final est " + str(score) + ".\n" + "Souhaitez-vous recommencer ?"), font=('Helvetica','15'))
 bouton_quitter = tk.Button(racine, text=("Quitter"), font=('Helvetica','15'), command=racine.destroy)
 
-bouton_declarer_forfait = tk.Button(racine, text="Déclarer forfait", font=('Helvetica','15'), command=defaite)
+bouton_declarer_forfait = tk.Button(racine, text="Déclarer forfait", font=('Helvetica','15'), command=declarer_forfait)
 
 ## placement des widgets
 canevas.place(x=50, y=50)
@@ -356,6 +372,10 @@ racine.bind('<Up>', deplacer_haut_clavier)
 racine.bind('<Down>', deplacer_bas_clavier)
 racine.bind('<Left>', deplacer_gauche_clavier)
 racine.bind('<Right>', deplacer_droite_clavier)
+
+racine.bind('<p>', play_clavier)
+racine.bind('<Escape>', destroy_clavier)
+racine.bind('<f>', declarer_forfait_clavier)
 
 ## boucle principale
 affichage_configuration_courante()
